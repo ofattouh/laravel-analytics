@@ -42,3 +42,35 @@ class UserFactory extends Factory
         ]);
     }
 }
+
+/*
+
+    By default, Faker package is used inside definition method of UserFactory class to create test user name and email
+
+    // Another faker example:
+    // https://medium.com/@mahedyhasan017/connect-laravel-with-mysql-database-d8baa29e2ea4
+    public function up(): void
+    {
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->text('long_description')->nullable();
+            $table->boolean('completed')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    public function definition(): array
+    {
+        return [
+            'title' => fake()->sentence,
+            'description' => fake()->paragraph,
+            'long_description' => fake()-> paragraph(7,true),
+            'completed' => fake()->boolean
+        ];
+    }
+
+    // https://github.com/FakerPHP/Faker
+
+*/

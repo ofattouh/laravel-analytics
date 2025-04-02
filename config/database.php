@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),        // default installation Database
-    // 'default' => env('DB_CONNECTION', 'mysql'),      // use MySQL Database instead
+    // 'default' => env('DB_CONNECTION', 'sqlite'),  // Default installation Database
+    'default' => env('DB_CONNECTION', 'mysql'),      // Use MySQL Database
 
     /*
     |--------------------------------------------------------------------------
@@ -46,19 +46,22 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'), // env() helper takes values from .env file which are called environment variables
-            'host' => env('DB_HOST', '127.0.0.1'),  // NEVER use env() helper in code outside config files
+            //'host' => env('DB_HOST', '127.0.0.1'),  // NEVER use env() helper in code outside config files
+            'host' => env('DB_HOST', 'local-2.evaluation.pshsa.ca'),
             'port' => env('DB_PORT', '3306'),
             // 'database' => env('DB_DATABASE', 'laravel'),
             'database' => env('DB_DATABASE', 'evaluation-analytics-dev'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
-            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'charset' => env('DB_CHARSET', 'utf8mb4'), // Laravel uses utf8mb4 character set and collation by default
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'), // Store extended multibyte characters such as "emojis"
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            // 'engine' => null, // Cause MySQL error: Specified key was too long; max key length is 1000 bytes (MyISAM)
+            // 'engine' => 'InnoDB ROW_FORMAT=DYNAMIC', // Fix above MySQL error OR
+            'engine' => 'InnoDB',                       // Fix above MySQL error
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
@@ -185,8 +188,8 @@ return [
     migration files. Usually, 1 Migration file would create one table. Laravel by default, creates 3 tables
     corresponding to users using 1 of the 3 migration files
 
-    When using the default installation database driver SQLite, migrations are run automatically after
-    creating new project. If you use any other database driver, the database will be empty initially
+    When using the default installation Database driver SQLite, migrations are run automatically after
+    creating new project. If you use any other Database driver, the Database will be empty initially
 
     To run migrations, use artisan command: `php artisan migrate` in the terminal which will run all migrations
     from the database/migrations folder
@@ -200,7 +203,13 @@ return [
     has table called migrations that stores all migrations that have been run, with their batch number.
     When we run the migration, a new record is inserted for the new categories table and batch number is updated
 
-    Laravel use database to manage sessions by default
+    Laravel use the Database to manage sessions by default
+
+    Inside database folder, there are three sub-folders: migrations, factories: which describe fake data
+    values/rules for each Model, and seeds: which describe data to be seeded, and may/not use factories.
+    Migrations are about structure of database, and Factories/Seeds are about the data itself and values
+
+
 
     Useful DB commands:
 
@@ -211,21 +220,41 @@ return [
     `php artisan make:migration "create categories table""`  // create Migration for DB table Categories
     `php artisan make:migration create_categories_table`     // create Migration for DB table Categories
 
-    `php artisan migrate`                 // Run all migrations files
+    `php artisan serve`                   // Run Laravel server
 
-    `php artisan migrate:fresh`           // Rebuild database if already existed and run last batch installation tables
+    `php artisan migrate`                 // Run ALL Database migrations files
 
-    `php artisan migrate:rollback`        // Rollback command will only roll back migrations to last batch number
+    `php artisan migrate:fresh`           // Rebuild Database if already existed and run last batch installation tables
+
+    `php artisan migrate:reset`           // Rebuild Database if already existed and run last batch installation tables
+
+    `php artisan migrate:rollback`        // Rollback DB command will only roll back migrations to last batch number
+
+    `php artisan db:wipe`                 // Delete/drop all tables of Database
 
     `composer dump-autoload`              // Regenerate Composer autoload files and ensures all classes are autoloaded
 
-    `php artisan config:cache`            // Clear and rebuild application cache
+    `php artisan config:clear`            // Clear/refresh configuration cache (Helpful to fix DB migration errors)
 
-    `php artisan cache:clear`             // Clear and rebuild application cache
+    `php artisan config:cache`            // Rebuild app configuration cache
+
+    `php artisan cache:clear`             // Clear application cache
 
     `php artisan make:model Category`     // Create Model:Category class file (1 artisan command)
 
     `php artisan make:model Post -m`      // Create Model:Post class file and Migration:xxx_create_posts_table file (2 artisan commands)
+
+    `php artisan make:model Task -mc`     // Create Model:Task with Migration and Controller files (3 artisan commands)
+
+    `php artisan make:migration "add is admin to users table"` // Add is_admin boolean column field to users table
+
+    `php artisan make:seeder AdminSeeder' // Generate seeder class inside database/seeders folder for admin user
+
+    `php artisan make:factory TaskFactory -model=Task` // Generate Task factory:TaskFactory for Model:Task (DB seeds)
+
+    `php artisan db:seed`                 // Run and insert DB seeder classes test data
+
+    `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
 
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config

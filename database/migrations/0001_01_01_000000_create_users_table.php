@@ -47,3 +47,10 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
+
+/*
+    // Define DB Field Data Length
+    $table->string('name',64);
+    $table->string('email',128)->unique();
+
+*/

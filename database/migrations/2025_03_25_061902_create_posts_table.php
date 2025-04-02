@@ -41,4 +41,8 @@ return new class extends Migration
 
     `php artisan migrate`   // Run migrations Database files
 
+    // Declare DB fields
+    // $table->text('long_description')->nullable();
+    // $table->boolean('completed')->default(false);
+
 */

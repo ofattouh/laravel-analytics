@@ -5,13 +5,16 @@ Useful Commands
 // Start Laravel app on Development mode at: http://127.0.0.1:8000 OR http://localhost:8000
 $composer run dev
 
+// Run ALL DB migration files since last Batch number
+$php artisan migrate
+
 // Create new Laravel example-app project with files created inside folder: example-app
 $laravel new example-app
 
-// Install Laravel Breeze OR any other Laravel package using Composer
+// Install Laravel Breeze (OR other Laravel packages using Composer)
 $composer require laravel/breeze
 
-// Build Laravel Breeze package OR any other Laravel package Scaffolding and Dependencies
+// Build Laravel Breeze package Scaffolding and Dependencies (OR other Laravel packages)
 $php artisan breeze:install
 
 // Install Laravel module installer Globally
@@ -19,6 +22,9 @@ $composer global require laravel/installer
 
 // Install NodeJS Dependencies defined inside folder: node_modules
 $npm install
+
+// Run Laravel built-in server
+$php artisan serve
 
 ==============================================================================================================
 
