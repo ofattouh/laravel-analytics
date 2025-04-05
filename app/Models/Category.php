@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     // Use custom table name from database instead of default Model class plural name as database table name
+    // protected $table = 'test_categories';
     protected $table = 'categories';
+
+    // Because of update()/create() method of Model:Category defined inside Controller:CategoryController,
+    // all fields must be added to $fillable property as array except for id and timestamps fields which
+    // are fillable by default
+    protected $fillable = ['name'];
+
 }
 
 /*
@@ -29,8 +36,5 @@ class Category extends Model
     `php artisan make:model Category -m`  // Create both Model class file: Category, and migration xx_create_categories_table file (2 artisan commands)
 
     `php artisan migrate`                 // Run migrations Database files
-
-
-    https://laraveldaily.com/lesson/laravel-beginners/mvc-model-controller-view-forerach
 
 */

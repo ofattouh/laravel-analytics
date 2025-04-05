@@ -7,6 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Resource route name: categories used inside each View file Hyperlink where route method is constructed from:
+// route name dot controller method name. Example: categories.index
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+
+
 // All routes below are added by Laravel Breeze package
 
 // Method middleware, with auth as parameter: only authenticated logged-in users can access this view/page
@@ -22,10 +27,3 @@ Route::middleware('auth')->group(function () {
 
 // Auth routes file define all routes required for authentication: login, registration, logout and forgot password
 require __DIR__.'/auth.php';
-
-
-/*
-
-    // https://laraveldaily.com/lesson/laravel-beginners/login-register-breeze
-
-*/

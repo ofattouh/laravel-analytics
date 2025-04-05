@@ -210,7 +210,6 @@ return [
     Migrations are about structure of database, and Factories/Seeds are about the data itself and values
 
 
-
     Useful DB commands:
 
     `php artisan db:show`                 // Show information about DB and tables
@@ -256,6 +255,10 @@ return [
 
     `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
 
+    // Create Resource Controller:CategoryController with Model:Category, add type-hinted models for controller methods
+    `php artisan make:controller CategoryController --resource --model=Category`
+
+    `php artisan route:list`               // Check available Routes
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 
