@@ -7,23 +7,47 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Resource route name: categories used inside each View file Hyperlink where route method is constructed from:
-// route name dot controller method name. Example: categories.index
-Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+// Authetication routes
 
-
-// All routes below are added by Laravel Breeze package
-
-// Method middleware, with auth as parameter: only authenticated logged-in users can access this view/page
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// OR Method 2 using Route group where we add methods on Route facade: middleware, prefix, etc., then use
+// group method with closure and add all Routes protected with middleware: `auth` inside this closure
 Route::middleware('auth')->group(function () {
+
+    // Added by Breeze Laravel package
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Added by Breeze Laravel package
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Resource route name: categories used inside View file link where route method is constructed from route name
+    // dot controller method name (Ex:categories.index). Restrict access to category routes to admin using 2 Options:
+
+    // Option 1: Apply Middleware:IsAdminMiddleware by passing Middleware class name
+    // Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware(\App\Http\Middleware\IsAdminMiddleware::class);
+
+    // Option 2: Apply Middleware:IsAdminMiddleware by passing alias:is_admin
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('is_admin');
+
 });
 
 // Auth routes file define all routes required for authentication: login, registration, logout and forgot password
 require __DIR__.'/auth.php';
+
+/*
+    Middleware runs checks before Routes, and if it returns false, it shows errors or redirect to error page.
+    Example: Using auth middleware, if someone wants to visit the /dashboard URL, protected with auth Middleware,
+    they will automatically get redirected to login page
+
+    We should assign category resource route to auth Middleware to protect it. We could add middleware() method to
+    Route and provide Middleware, or if Route has multiple Middlewares provide them as array. Use Route group instead
+
+    // Method 1: Method middleware, with auth as parameter: only authenticated logged-in users can access this view
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+*/

@@ -23,22 +23,24 @@
 
                         <!-- foreach loop CategoryController variable $categories passed from index method using Route Model binding -->
                         <tbody>
-                            @foreach($categories as $category)
-                                <tr>
-                                    <td>{{ $category->name }}</td>
-                                    <td>
-                                        <!-- Go to CategoryController edit method, pass category using route model binding -->
-                                        <a href="{{ route('categories.edit', $category) }}">Edit</a>
+                            @if (isset($categories))
+                                @foreach($categories as $category)
+                                    <tr>
+                                        <td>{{ $category->name }}</td>
+                                        <td>
+                                            <!-- Go to CategoryController edit method, pass category using route model binding -->
+                                            <a href="{{ route('categories.edit', $category) }}">Edit</a>
 
-                                        <!-- POST variable:$category to Controller:CategoryController destroy() method  -->
-                                        <form method="POST" action="{{ route('categories.destroy', $category) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            <!-- POST variable:$category to Controller:CategoryController destroy() method  -->
+                                            <form method="POST" action="{{ route('categories.destroy', $category) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

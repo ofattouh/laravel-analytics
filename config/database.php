@@ -258,7 +258,9 @@ return [
     // Create Resource Controller:CategoryController with Model:Category, add type-hinted models for controller methods
     `php artisan make:controller CategoryController --resource --model=Category`
 
-    `php artisan route:list`               // Check available Routes
+    `php artisan route:list`                        // Check available Routes
+
+    `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 
