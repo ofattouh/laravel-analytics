@@ -39,8 +39,7 @@ return [
     |
     */
 
-    // Changed by Omar
-    // 'debug' => (bool) env('APP_DEBUG', false),
+    // Enable debug
     'debug' => (bool) env('APP_DEBUG', true),
 
     /*
@@ -54,7 +53,6 @@ return [
     |
     */
 
-    // Changed by Omar
     // 'url' => env('APP_URL', 'http://localhost'),
     'url' => env('APP_URL', 'http://local-2.evaluation.pshsa.ca'),
 

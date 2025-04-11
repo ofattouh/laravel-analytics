@@ -23,14 +23,14 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Resource route name: categories used inside View file link where route method is constructed from route name
-    // dot controller method name (Ex:categories.index). Restrict access to category routes to admin using 2 Options:
+    // Resource route name: categories used inside View files:create/edit/index of directory categories where
+    // each route method is constructed from route name dot controller method name (Ex:categories.index).
+    // Restrict access to categories and posts routes to admin user
+    Route::middleware('is_admin')->group(function () {
+        Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+        Route::resource('posts', \App\Http\Controllers\PostController::class);
+    });
 
-    // Option 1: Apply Middleware:IsAdminMiddleware by passing Middleware class name
-    // Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware(\App\Http\Middleware\IsAdminMiddleware::class);
-
-    // Option 2: Apply Middleware:IsAdminMiddleware by passing alias:is_admin
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('is_admin');
 
 });
 
@@ -49,5 +49,12 @@ require __DIR__.'/auth.php';
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
+
+    // Restrict access to categories route to admin user using 2 Options:
+    Option 1: Apply Middleware:IsAdminMiddleware by passing Middleware class name
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware(\App\Http\Middleware\IsAdminMiddleware::class);
+
+    Option 2: Apply Middleware:IsAdminMiddleware by passing alias:is_admin
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('is_admin');
 
 */

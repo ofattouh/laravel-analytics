@@ -17,14 +17,29 @@ $composer require laravel/breeze
 // Build Laravel Breeze package Scaffolding and Dependencies (OR other Laravel packages)
 $php artisan breeze:install
 
+// Install Laravel DebugBar package as Dev dependancy to test how many queries are executed
+$composer require barryvdh/laravel-debugbar --dev
+
 // Install Laravel module installer Globally
 $composer global require laravel/installer
+
+// Show all available package suggestions for installation
+$composer suggest --all
 
 // Install NodeJS Dependencies defined inside folder: node_modules
 $npm install
 
 // Run Laravel built-in server
 $php artisan serve
+
+// Print PHP variable inside blade template file OR
+@dump($test)
+
+// Print PHP variable inside blade template file
+@php
+    var_dump($test);
+@endphp
+
 
 ==============================================================================================================
 

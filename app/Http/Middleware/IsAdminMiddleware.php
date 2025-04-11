@@ -15,7 +15,7 @@ class IsAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Show permission error for guest logged in user
+        // Show permission error for logged in users with role guest
         if (! auth()->user()->is_admin) {
             abort(403);
         }
@@ -30,7 +30,7 @@ class IsAdminMiddleware
     next request if needed
 
     Inside Middleware, if is_admin field in User table is false, abort with forbidden status. To obtain
-    currently authenticated user, use Laravel helper method:auth()->user() and then call is_admin field
+    currently authenticated user, use Laravel helper method:auth()->user() and then call is_admin alias field
 
     Next, we must register Middleware to use it as an alias. Middleware is registered in bootstrap/app.php file.
     Then, we can use is_admin Middleware in web.php routes, however because we need to restrict access only to

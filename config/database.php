@@ -257,6 +257,7 @@ return [
 
     // Create Resource Controller:CategoryController with Model:Category, add type-hinted models for controller methods
     `php artisan make:controller CategoryController --resource --model=Category`
+    `php artisan make:controller PostController --resource --model=Post`
 
     `php artisan route:list`                        // Check available Routes
 

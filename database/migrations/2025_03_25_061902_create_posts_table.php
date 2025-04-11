@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('text');
-            $table->foreignId('category_id')->constrained(); // relationship between posts.id and categories.id
+            // 1 to many relationship between posts and categories, removing onDelete('cascade') throws DB exception
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

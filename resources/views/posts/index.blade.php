@@ -1,39 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Categories') }}
+            {{ __('Posts') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <a href="{{ route('posts.create') }}">Add new post</a>
+                    <br><br><br>
 
-                    <!-- Go to create method of Controller:CategoryController -->
-                    <a href="{{ route('categories.create') }}">Add new category</a>
-                    <br><br>
-
-                    @if (sizeof($categories) > 0)
+                    @if (sizeof($posts) > 0)
                         <table style="border: 1px solid black;">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
-                            <!-- foreach loop CategoryController variable $categories passed from index method using Route Model binding -->
                             <tbody>
-                                @foreach($categories as $category)
+                                @foreach($posts as $post)
                                     <tr>
-                                        <td>{{ $category->name }}</td>
-                                        <td>
-                                            <!-- Go to CategoryController edit method, pass category using route model binding -->
-                                            <a href="{{ route('categories.edit', $category) }}">Edit</a>
+                                        <td>{{ $post->title }}</td>
 
-                                            <!-- POST variable:$category to Controller:CategoryController destroy() method  -->
-                                            <form method="POST" action="{{ route('categories.destroy', $category) }}">
+                                        <!-- use category on post Model and call category field from categories table -->
+                                        <td>{{ $post->category->name }}</td>
+
+                                        <td>
+                                            <a href="{{ route('posts.edit', $post) }}">Edit</a>
+                                            <form method="POST" action="{{ route('posts.destroy', $post) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
