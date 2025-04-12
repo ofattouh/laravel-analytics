@@ -263,6 +263,9 @@ return [
 
     `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
 
+    `php artisan make:request StorePostRequest`     // Create Form Request class:StorePostRequest
+
+
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 
 */

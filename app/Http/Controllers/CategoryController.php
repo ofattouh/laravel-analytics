@@ -33,6 +33,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // First method: Backend validation for required create categories form field. If validation fails, Laravel
+        // redirects back with error message in the session
+        $request->validate([
+            'name' => ['required'],
+        ]);
+
         // Pass input name from Request class, which is injected into this method using Laravel
         Category::create([
             'name' => $request->input('name'),
@@ -64,6 +70,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // First method: Backend validation for required update categories form field. If validation fails, Laravel
+        // redirects back with error message in the session
+        $request->validate([
+            'name' => ['required'],
+        ]);
+
         // Pass input name from Request class, which is injected into this method using Laravel
         $category->update([
             'name' => $request->input('name'),

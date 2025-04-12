@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 // Data models
 use App\Models\Post;
 use App\Models\Category;
 
-use Illuminate\Http\Request;
+// Request Class:StorePostRequest
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -38,14 +41,11 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
-        Post::create([
-            'title' => $request->input('title'),
-            'text' => $request->input('text'),
-            'category_id' => $request->input('category_id'),
-        ]);
+        // Second method: Form Request class:StorePostRequest rules() method, return validated data result as array
+        // which can be used when creating or updating records using Request validated() method
+        Post::create($request->validated());
 
         return redirect()->route('posts.index');
     }
@@ -74,7 +74,14 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // First method: Backend validation for required update posts form field. If validation fails, Laravel
+        // redirects back with error message in the session
+        $request->validate([
+            'title' => ['required'],
+            'text' => ['required'],
+            'category_id' => ['required'],
+        ]);
+
         $post->update([
             'title' => $request->input('title'),
             'text' => $request->input('text'),
@@ -106,6 +113,34 @@ class PostController extends Controller
     project and is also called the N+1 query problem. Therefore all() method is used if there was no DB
     foreign key relationship/condition and if there was any, we must use get() method on class Model:Post
 
+    To add client side (browser) validation of form fields, add required attribute in HTML form, which could be
+    bypassed therefore we must add backend validation which can be done in few ways:
+
+    Each field must have set of validation rules which can be placed in Controller or separate Form Request class.
+
+    First method: To add them in Controller:PostController store() method, We must validate Request and call
+    `validate()` method and provide fields with rules in array
+
+    Second method: To add them in Request Class:StorePostRequest, replace Request type in Controller:PostController
+    store() method from request to StorePostRequest. Add all validation fields into StorePostRequest rules() method
+
+
+    // First method: Backend validation for required create posts form fields. If validation fails, Laravel
+    // redirects back with error message(s) in the session
+    public function store(Request $request)
+        $request->validate([
+            'title' => ['required'],
+            'text' => ['required'],
+            'category_id' => ['required'],
+        ]);
+
+        Post::create([
+            'title' => $request->input('title'),
+            'text' => $request->input('text'),
+            'category_id' => $request->input('category_id'),
+        ]);
+
+        return redirect()->route('posts.index');
+    }
 
 */
-
