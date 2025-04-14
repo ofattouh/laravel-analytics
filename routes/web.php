@@ -45,6 +45,8 @@ require __DIR__.'/auth.php';
     We should assign category resource route to auth Middleware to protect it. We could add middleware() method to
     Route and provide Middleware, or if Route has multiple Middlewares provide them as array. Use Route group instead
 
+    Route::view('/', 'dashboard')->name('dashboard');
+
     // Method 1: Method middleware, with auth as parameter: only authenticated logged-in users can access this view
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -56,5 +58,8 @@ require __DIR__.'/auth.php';
 
     Option 2: Apply Middleware:IsAdminMiddleware by passing alias:is_admin
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('is_admin');
+
+    For routes we can use vue-router
+
 
 */

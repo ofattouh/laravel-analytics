@@ -26,6 +26,12 @@ $composer global require laravel/installer
 // Show all available package suggestions for installation
 $composer suggest --all
 
+// Install Vue and Vue loader as dependancy
+$npm install vue vue-loader
+
+// Install Vue Vite plugin as Dev dependancy
+$npm install @vitejs/plugin-vue --save-dev
+
 // Install NodeJS Dependencies defined inside folder: node_modules
 $npm install
 
@@ -40,6 +46,11 @@ $php artisan serve
     var_dump($test);
 @endphp
 
+// Run and compile Vue files to reflect template files code changes
+
+>npm run dev          // Start Development Server, run Vite Build tool & Open: http://localhost:5173/
+>npm run build        // Compile project to reflect code changes, create public browser files for production
+>npm run preview      // Open browser window that displays the project built from inside dist folder
 
 ==============================================================================================================
 

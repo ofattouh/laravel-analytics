@@ -117,9 +117,3 @@
         </div>
     </div>
 </nav>
-
-<!--
-
-    `categories.index` route to display CRUD actions: list, create, edit, delete of Resource Controller: CategoryController
-
--->
