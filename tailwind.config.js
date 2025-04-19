@@ -7,6 +7,8 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        // Add Vue components location for tailwind to automatically pick up and compile classes used in Vue
+        './resources/js/components/**/*.vue',
     ],
 
     theme: {

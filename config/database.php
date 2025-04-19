@@ -233,11 +233,11 @@ return [
 
     `composer dump-autoload`              // Regenerate Composer autoload files and ensures all classes are autoloaded
 
-    `php artisan config:clear`            // Clear/refresh configuration cache (Helpful to fix DB migration errors)
-
-    `php artisan config:cache`            // Rebuild app configuration cache
+    `php artisan config:clear`            // Clear/refresh configuration cache (Helpful to fix config errors)
 
     `php artisan cache:clear`             // Clear application cache
+
+    `php artisan config:cache`            // Rebuild app configuration cache
 
     `php artisan make:model Category`     // Create Model:Category class file (1 artisan command)
 
@@ -247,11 +247,15 @@ return [
 
     `php artisan make:migration "add is admin to users table"` // Add is_admin boolean column field to users table
 
-    `php artisan make:seeder AdminSeeder' // Generate seeder class inside database/seeders folder for admin user
+    `php artisan make:seeder AdminSeeder` // Generate seeder class inside database/seeders folder for admin user
+
+    `php artisan make:seeder PostSeeder`  // Generate seeder class inside database/seeders folder for Post table
 
     `php artisan make:factory TaskFactory -model=Task` // Generate Task factory:TaskFactory for Model:Task (DB seeds)
 
-    `php artisan db:seed`                 // Run and insert DB seeder classes test data
+    `php artisan make:factory PostFactory`             // Generate Post factory (for table:Post seed values)
+
+    `php artisan db:seed`                 // Run other seeder classes in:seeders/DatabaseSeeder, add all seeder values
 
     `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
 
@@ -259,12 +263,17 @@ return [
     `php artisan make:controller CategoryController --resource --model=Category`
     `php artisan make:controller PostController --resource --model=Post`
 
-    `php artisan route:list`                        // Check available Routes
+    `php artisan make:controller Api/PostController` // Create controller:PostController for API endpoint
+
+    `php artisan route:list`                         // Check available Routes
 
     `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
 
     `php artisan make:request StorePostRequest`     // Create Form Request class:StorePostRequest
 
+    `php artisan install:api`                       // Prepare Laravel application for API routes
+
+    `php artisan config:publish cors`               // Publish cors configuration file in config/cors.php
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 

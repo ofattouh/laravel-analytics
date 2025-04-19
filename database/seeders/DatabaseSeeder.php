@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        /* Test User was already inserted into users table using: php artisan db:seed OR unique email error thrown
+        /* Test User was already inserted into users table using: `php artisan db:seed` otherwise throws unique email error
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
 
         // Call admin seeder class to add admin user test data
         $this->call(AdminSeeder::class);
+
+        // Call Post seeder class to add table:posts seeder test data
+        $this->call([PostSeeder::class]);
     }
 }
 

@@ -19,6 +19,16 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        cors: {
+            origin: [
+                // https://laravel.com/docs/12.x/vite#cors
+                // Example: Allow all origins for given top-level domain, such as *.laravel
+                // Supports: SCHEME://DOMAIN.laravel[:PORT] => /^https?:\/\/.*\.laravel(:\d+)?$/,
+                'http://local-2.evaluation.pshsa.ca:8000', // removes cors browser error caused by /api/posts
+            ],
+        },
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',

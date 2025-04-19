@@ -45,5 +45,6 @@ return new class extends Migration
     // Declare DB fields
     // $table->text('long_description')->nullable();
     // $table->boolean('completed')->default(false);
+    // $table->longText('content');
 
 */

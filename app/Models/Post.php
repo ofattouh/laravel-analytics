@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+
+    /** @use HasFactory<\Database\Factories\PostFactory> */
+    use HasFactory;
+
     // Because of update()/create() method of Model:Category defined inside Controller:CategoryController,
     // all fields must be added to $fillable property as array except for id and timestamps fields which
     // are fillable by default
