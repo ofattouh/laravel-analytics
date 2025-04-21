@@ -31,6 +31,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('posts', \App\Http\Controllers\PostController::class);
     });
 
+    // Link to posts instead of defining routes in any Controller method (Method 1: Vue Options API)
+    Route::get('/posts-listings', function () {
+        return view('posts-listings');
+    });
+
+    // Link to posts instead of defining routes in any Controller method (Method 2: Vue Composition API/Composable function)
+    Route::get('/posts-listings-2', function () {
+        return view('posts-listings-2');
+    });
 
 });
 

@@ -9,13 +9,16 @@ Alpine.start();
 // Initialize Vue app
 import { createApp } from 'vue'
 
-// Declare Vue Component
-import PostsIndex from './components/Posts/Index.vue'
+// Declare Vue Components
+import PostsIndex from './components/Posts/Index.vue';
+import PostsIndex2 from './components/Posts/Index2.vue';
 
+// Create Vue app
 const app = createApp({});
 
-// Add Vue Component
-app.component('posts-index', PostsIndex)
+// Add Vue Components
+app.component('posts-index', PostsIndex);
+app.component('posts-index-2', PostsIndex2);
 
-// Mount Vue component to id="app" in app.blade.php
-app.mount('#app')
+// Mount Vue components to id="app" defined in view: app.blade.php
+app.mount('#app');
