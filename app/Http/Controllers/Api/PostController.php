@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 // Data models
 use App\Models\Post;
 
+// Eloquent API Resource class
+use App\Http\Resources\PostResource;
+
 class PostController extends Controller
 {
     public function index()
     {
         // return collection of all posts from DB Model:Post
-        return Post::all();
+        // return Post::all();
+
+        // `PostResource` collection is a wrapper on top of Eloquent query:Post::all() which can transform
+        // each field to different format by returning array from `PostResource`:`toArray()` method
+        return PostResource::collection(Post::all());
     }
 }
 

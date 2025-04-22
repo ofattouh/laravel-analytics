@@ -6,7 +6,8 @@ export default function usePosts() {
 
     const getPosts = async () => {
         axios.get('/api/posts').then(response => {
-            posts.value = response.data;
+            // Added extra `data` wrapper from Eloquent API Resource call: `PostResource`:`toArray` method
+            posts.value = response.data.data;
         })
     }
 

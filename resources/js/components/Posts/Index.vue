@@ -14,8 +14,9 @@
             // Create GET request to: `/api/posts` to fetch DB posts using PostController index method
             fetchPosts() {
                 axios.get('/api/posts')
-                    .then(response => this.posts = response.data)   // if request is successful, store posts
-                    .catch(error => console.log(error))             // if request has error, log error
+                    // Added extra `data` wrapper from Eloquent API Resource call: `PostResource`:`toArray` method
+                    .then(response => this.posts = response.data.data)   // if request is successful, store posts
+                    .catch(error => console.log(error))                  // if request has error, log error
             }
         }
     }
@@ -106,6 +107,4 @@
 
     Show all DB posts in Vue template from table:Posts using `v-for` Vue directive
 
-
-    https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/spa-install-laravel-vue-first-vuejs-component
 -->

@@ -275,6 +275,9 @@ return [
 
     `php artisan config:publish cors`               // Publish cors configuration file in config/cors.php
 
+    `php artisan make:resource PostResource`        // Create Eloquent API Resource class:PostResource
+
+
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 
 */
