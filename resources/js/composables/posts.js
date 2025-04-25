@@ -2,13 +2,13 @@ import { ref } from 'vue'
 
 // Composable reusable function
 export default function usePosts() {
-    const posts = ref([])
+    // Store object reference
+    const posts = ref({});
 
-    const getPosts = async () => {
-        axios.get('/api/posts').then(response => {
-            // Added extra `data` wrapper from Eloquent API Resource call: `PostResource`:`toArray` method
-            posts.value = response.data.data;
-        })
+    const getPosts = async (page = 1) => {
+        // Paginated data returned from API call
+        const response = await axios.get('/api/posts?page=' + page);
+        posts.value = response.data;
     }
 
     // Return exposed reactive stateful data:`posts` and exposed method:`getPosts`
@@ -37,12 +37,28 @@ export default function usePosts() {
     To better import files and instead of going back directories with dots `../../` , we can use shortcut: `@`
     as alias defined inside vite.config.js:
     import usePosts from "../../composables/posts";
-    mport usePosts from "@/composables/posts";
+    import usePosts from "@/composables/posts";
 
     When using Options API, composable functions must be called inside setup(), and returned bindings must also be
     returned from setup() so that composable functions reactive data is exposed to `this` context in Vue template
 
 
+    const posts = ref([])
+
+    const getPosts = async () => {
+        axios.get('/api/posts').then(response => {
+            // Added extra `data` wrapper from Eloquent API Resource call: `PostResource`:`toArray` method
+            posts.value = response.data.data;
+        })
+    }
+
+    const getResults = async (page = 1) => {
+        const response = await fetch(`https://example.com/results?page=${page}`);
+        laravelData.value = await response.json();
+    }
+
+
+    https://laravel-vue-pagination.org/
     https://vuejs.org/api/composition-api-setup.html
     https://vuejs.org/guide/reusability/composables.html
 

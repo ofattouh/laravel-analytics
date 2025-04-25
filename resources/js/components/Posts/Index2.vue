@@ -1,5 +1,7 @@
 <script setup>
     import { onMounted } from "vue";
+    import { TailwindPagination } from 'laravel-vue-pagination';
+
     // import usePosts from "../../composables/posts";
     import usePosts from "@/composables/posts";
 
@@ -42,8 +44,9 @@
 
                 <tbody class="bg-white divide-y divide-gray-200 divide-solid">
 
-                    <!-- Loop through posts stateful reactive variable passed in from Vue composable function:usePosts -->
-                    <tr v-bind:key="post" v-for="post in posts">
+                    <!-- Loop through posts stateful reactive variable passed from Vue composable function:usePosts -->
+                    <!-- Change posts to posts.data for Laravel Vue Pagination library -->
+                    <tr v-bind:key="post" v-for="post in posts.data">
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.id }}
                         </td>
@@ -66,12 +69,51 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
+
+            <!-- Tailwind pagination links, Limit match numberRecords of PostController:index method -->
+            <TailwindPagination
+                :data="posts"
+                :limit="10"
+                :keepLength="true"
+                @pagination-change-page="getPosts"
+            />
         </div>
     </div>
 </template>
 
+<style>
+
+    /* Laravel Vue Pagination styling for active pagination item (active-classes) */
+    .bg-blue-50, .border-blue-500, .text-blue-600 {
+        border-color: #7a2531;
+        background-color: #7a2531;
+        color: #FFF;
+    }
+
+    /* Laravel Vue Pagination styling for each pagination item (item-classes)
+    .bg-white, text-gray-500, border-gray-300,hover:bg-gray-50 {
+
+    }
+    */
+
+</style>
+
+
 <!--
 
     This component uses: Vue 3 Composition API and Composable function
+
+    <TailwindPagination
+        :data="posts"
+        :class="['bg-blue-50', 'border-blue-500','text-blue-600',]"
+        @pagination-change-page="getPosts"
+    />
+
+
+    https://laravel-vue-pagination.org/guide/components/tailwind.html
+    https://laravel-vue-pagination.org/guide/api/props.html
+
+    https://github.com/peshanghiwa/vue-awesome-paginate
 
 -->

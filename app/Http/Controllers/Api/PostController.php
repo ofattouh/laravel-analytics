@@ -18,9 +18,14 @@ class PostController extends Controller
         // return collection of all posts from DB Model:Post
         // return Post::all();
 
-        // `PostResource` collection is a wrapper on top of Eloquent query:Post::all() which can transform
+        // `PostResource` collection is a wrapper on top of Eloquent Query: Post::all() which can transform
         // each field to different format by returning array from `PostResource`:`toArray()` method
-        return PostResource::collection(Post::all());
+        // return PostResource::collection(Post::all());
+
+        $numberRecords = 10;
+
+        // Paginate posts data with number of database records
+        return PostResource::collection(Post::paginate($numberRecords));
     }
 }
 
@@ -30,5 +35,7 @@ class PostController extends Controller
     API routes is added to bootstrap/app.php file
 
     `php artisan install:api`  // Prepare Laravel application for API routes
+
+    https://laravel-vue-pagination.org/
 
 */
