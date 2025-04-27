@@ -40,11 +40,22 @@ return new class extends Migration
     Name of relation column has format of "xx_id", where "xx" is singular form of relations table: categories
     And constrained(), which is shorter Laravel method for: ->references('id')->on('categories')
 
-    `php artisan migrate`   // Run migrations Database files
+    `php artisan migrate`   // Run Database migrations files
 
     // Declare DB fields
-    // $table->text('long_description')->nullable();
-    // $table->boolean('completed')->default(false);
-    // $table->longText('content');
+    $table->text('long_description')->nullable();
+    $table->boolean('completed')->default(false);
+    $table->longText('content');
+
+    // Add foreign key column:category_id to Posts table (Using other separate migration file)
+    public function up(): void
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->foreignId('category_id')->after('content')->constrained();
+        });
+    }
+
+    // Add foreign key column:category_id to Posts table
+    `php artisan make:migration "add category to posts table"`
 
 */

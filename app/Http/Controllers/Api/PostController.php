@@ -24,8 +24,11 @@ class PostController extends Controller
 
         $numberRecords = 10;
 
-        // Paginate posts data with number of database records
-        return PostResource::collection(Post::paginate($numberRecords));
+        // To avoid N+1 duplicate queries issue, eager load categories by using Laravel keyword `with`
+        $posts = Post::with('category')->paginate($numberRecords);
+
+        // Paginated posts data with number of database records
+        return PostResource::collection($posts);
     }
 }
 

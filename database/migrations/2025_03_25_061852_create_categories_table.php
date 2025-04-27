@@ -29,6 +29,6 @@ return new class extends Migration
 
 /*
 
-    `php artisan migrate`   // Run migrations Database files
+    `php artisan migrate`   // Run Database migrations files
 
 */

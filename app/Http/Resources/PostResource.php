@@ -23,6 +23,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'text' => substr($this->text, 0, 50). '...', // Get first 50 characters and append 3 dots
             'category_id' => $this->category_id,
+            'category_name' => $this->category->name,
             'created_at' => $this->created_at->toDateString(), // Transform to readable date format
             'updated_at' => $this->updated_at->toDateString(),
         ];

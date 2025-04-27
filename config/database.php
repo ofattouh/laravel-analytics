@@ -247,6 +247,8 @@ return [
 
     `php artisan make:migration "add is admin to users table"` // Add is_admin boolean column field to users table
 
+    `php artisan make:migration "add category to posts table"` // Add foreign key column:category_id to Posts table
+
     `php artisan make:seeder AdminSeeder` // Generate seeder class inside database/seeders folder for admin user
 
     `php artisan make:seeder PostSeeder`  // Generate seeder class inside database/seeders folder for Post table
