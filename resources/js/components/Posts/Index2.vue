@@ -1,22 +1,42 @@
 <script setup>
-    import { onMounted } from "vue";
+    import { onMounted, ref } from "vue";
     import { TailwindPagination } from 'laravel-vue-pagination';
 
     // import usePosts from "../../composables/posts";
     import usePosts from "@/composables/posts";
+    import useCategories from "@/composables/categories";
+
+    // Store reference
+    const selectedCategory = ref('')
 
     // Composable function:usePosts expose all data
     const { posts, getPosts } = usePosts()
 
+    // Composable function:useCategories expose all data
+    const { categories, getCategories } = useCategories()
+
     // called only when component finish loading
     onMounted(() => {
         getPosts()
+        getCategories()
     })
 </script>
 
 <template>
     <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
         <div class="min-w-full align-middle">
+
+            <!-- Add Vue Composable:categories to show all categories -->
+            <!-- Loop through categories stateful reactive variable passed from Vue composable function:useCategories -->
+            <div class="mb-4">
+                <select v-model="selectedCategory" class="block mt-1 w-full sm:w-1/4 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="" selected>-- Filter by category --</option>
+                    <option v-bind:key="category.id" v-for="category in categories.data" :value="category.id" >
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+
             <table class="min-w-full divide-y divide-gray-200 border">
                 <thead>
                     <tr>
@@ -44,9 +64,9 @@
 
                 <tbody class="bg-white divide-y divide-gray-200 divide-solid">
 
+                    <!-- Add Vue Composable:posts to show all Posts -->
                     <!-- Loop through posts stateful reactive variable passed from Vue composable function:usePosts -->
-                    <!-- Change posts to posts.data for Laravel Vue Pagination library -->
-                    <tr v-bind:key="post" v-for="post in posts.data">
+                    <tr v-bind:key="post.id" v-for="post in posts.data">
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.id }}
                         </td>
@@ -69,13 +89,13 @@
                     </tr>
                 </tbody>
             </table>
-            <br>
 
-            <!-- Tailwind pagination links, Limit match numberRecords of PostController:index method -->
+            <!-- Tailwind pagination links, Limit should match numberRecords of Api/PostController:index method -->
             <TailwindPagination
                 :data="posts"
                 :limit="10"
                 :keepLength="true"
+                class="mt-4"
                 @pagination-change-page="getPosts"
             />
         </div>

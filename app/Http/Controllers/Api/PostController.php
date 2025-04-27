@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-// Data models
+// Data model
 use App\Models\Post;
 
 // Eloquent API Resource class

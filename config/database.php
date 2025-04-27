@@ -265,7 +265,8 @@ return [
     `php artisan make:controller CategoryController --resource --model=Category`
     `php artisan make:controller PostController --resource --model=Post`
 
-    `php artisan make:controller Api/PostController` // Create controller:PostController for API endpoint
+    `php artisan make:controller Api/PostController`     // Create controller:PostController for API endpoint
+    `php artisan make:controller Api/CategoryController` // Create controller:CategoryController for API endpoint
 
     `php artisan route:list`                         // Check available Routes
 
@@ -278,6 +279,7 @@ return [
     `php artisan config:publish cors`               // Publish cors configuration file in config/cors.php
 
     `php artisan make:resource PostResource`        // Create Eloquent API Resource class:PostResource
+    `php artisan make:resource CategoryResource`    // Create Eloquent API Resource class:CategoryResource
 
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config

@@ -35,6 +35,6 @@ class Category extends Model
 
     `php artisan make:model Category -m`  // Create both Model class file: Category, and migration xx_create_categories_table file (2 artisan commands)
 
-    `php artisan migrate`                 // Run migrations Database files
+    `php artisan migrate`                 // Run Database migrations files
 
 */
