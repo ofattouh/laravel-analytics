@@ -16,7 +16,7 @@ Route::get('/user', function (Request $request) {
 // API endpoint for route:posts to fetch DB posts from `/api/posts`
 Route::get('posts', [PostController::class, 'index']);
 
-// API endpoint for route:categories to fetch DB categories from:`/api/categories`
+// API endpoint for route:categories to fetch DB categories from `/api/categories`
 Route::get('categories', [CategoryController::class, 'index']);
 
 
