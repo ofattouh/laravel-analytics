@@ -1,5 +1,5 @@
 <script setup>
-    import { onMounted, ref } from "vue";
+    import { onMounted, ref, watch } from "vue";
     import { TailwindPagination } from 'laravel-vue-pagination';
 
     // import usePosts from "../../composables/posts";
@@ -14,6 +14,12 @@
 
     // Composable function:useCategories expose all data
     const { categories, getCategories } = useCategories()
+
+    // Watch `selectedCategory` variable for changes of two values: current and previous
+    // Pass page number and current value of selected category as arguments to getPosts()
+    watch(selectedCategory, (current, previous) => {
+        getPosts(1, current)
+    })
 
     // called only when component finish loading
     onMounted(() => {
@@ -53,7 +59,11 @@
                         </th>
 
                         <th class="px-6 py-3 bg-gray-50 text-left">
-                            <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Content</span>
+                            <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Description</span>
+                        </th>
+
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Created at</span>
                         </th>
 
                         <th class="px-6 py-3 bg-gray-50 text-left">
@@ -84,19 +94,24 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                            {{ post.created_at }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                             {{ post.updated_at }}
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- Tailwind pagination links, Limit should match numberRecords of Api/PostController:index method -->
+            <!-- Tailwind pagination links, Limit should match `numberRecords` of Api/PostController:index method,
+                Pass page number and selected category to getPosts() method to fix pagination -->
             <TailwindPagination
                 :data="posts"
                 :limit="10"
                 :keepLength="true"
                 class="mt-4"
-                @pagination-change-page="getPosts"
+                @pagination-change-page="page => getPosts(page, selectedCategory)"
             />
         </div>
     </div>

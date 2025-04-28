@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 // Data model
 use App\Models\Post;
@@ -24,8 +25,16 @@ class PostController extends Controller
 
         $numberRecords = 10;
 
-        // To avoid N+1 duplicate queries issue, eager load categories by using Laravel keyword `with`
-        $posts = Post::with('category')->paginate($numberRecords);
+        // N+1 issue: To avoid N+1 duplicate queries, eager load categories by using Laravel keyword `with`
+
+        // Eloquent conditional clause: when() method, accepts where condition as first parameter. If condition
+        // is true, Eloquent will execute closure function which is second parameter of when() method
+        // Meaning: if `category` from request exists, this where condition closure will be added to query
+        $posts = Post::with('category')
+            ->when(request('category'), function (Builder $query) {
+                $query->where('category_id', request('category'));
+            })
+            ->paginate($numberRecords);
 
         // Paginated posts data with number of database records
         return PostResource::collection($posts);
@@ -40,5 +49,6 @@ class PostController extends Controller
     `php artisan install:api`  // Prepare Laravel application for API routes
 
     https://laravel-vue-pagination.org/
+    https://laravel.com/docs/12.x/queries#conditional-clauses
 
 */

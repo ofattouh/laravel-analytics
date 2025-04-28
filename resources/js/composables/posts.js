@@ -5,9 +5,9 @@ export default function usePosts() {
     // Store object reference
     const posts = ref({});
 
-    const getPosts = async (page = 1) => {
+    const getPosts = async (page = 1, category = '') => {
         // Paginated data returned from API call
-        const response = await axios.get('/api/posts?page=' + page);
+        const response = await axios.get('/api/posts?page=' + page + '&category=' + category);
         posts.value = response.data;
     }
 
