@@ -28,19 +28,20 @@
                             Manage Posts
                         </a>
 
-                        <!-- Anchor link NOT any Controller route method -->
+                        <!-- Anchor link NOT any Controller route method
                         <a href="/posts-listings" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             Show Posts
                         </a>
+                        -->
 
                         <!-- Anchor link NOT any Controller route method -->
                         <a href="/posts-listings-2" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            Show Posts 2
+                            Display Posts
                         </a>
 
                         <!-- Anchor link NOT any Controller route method -->
                         <a href="/profile" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            My Account
+                            Profile
                         </a>
                     @endif
                 </div>

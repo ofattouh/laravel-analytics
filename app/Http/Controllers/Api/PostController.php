@@ -23,7 +23,22 @@ class PostController extends Controller
         // each field to different format by returning array from `PostResource`:`toArray()` method
         // return PostResource::collection(Post::all());
 
+        // `numberRecords` should match `:limit` property of TailwindPagination Vue component
         $numberRecords = 10;
+
+        // Pass `order_column`, `order_direction` URL parameters with default values:"updated_at", "desc"
+        $orderColumn = request('order_column', 'updated_at');
+        $orderDirection = request('order_direction', 'desc');
+
+        // Add validation to check if sort URL parameter has valid value
+        if (! in_array($orderColumn, ['id', 'title', 'created_at', 'updated_at'])) {
+            $orderColumn = 'updated_at';
+        }
+
+        // Add validation to check if sort URL parameter has valid value
+        if (! in_array($orderDirection, ['asc', 'desc'])) {
+            $orderDirection = 'desc';
+        }
 
         // N+1 issue: To avoid N+1 duplicate queries, eager load categories by using Laravel keyword `with`
 
@@ -34,6 +49,7 @@ class PostController extends Controller
             ->when(request('category'), function (Builder $query) {
                 $query->where('category_id', request('category'));
             })
+            ->orderBy($orderColumn, $orderDirection)
             ->paginate($numberRecords);
 
         // Paginated posts data with number of database records

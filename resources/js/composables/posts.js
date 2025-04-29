@@ -5,9 +5,22 @@ export default function usePosts() {
     // Store object reference
     const posts = ref({});
 
-    const getPosts = async (page = 1, category = '') => {
-        // Paginated data returned from API call
-        const response = await axios.get('/api/posts?page=' + page + '&category=' + category);
+    const getPosts = async (
+        page = 1,
+        category = '',
+        order_column = 'updated_at',
+        order_direction = 'desc'
+    ) => {
+        // Paginated, sorted data returned from API call
+        const response = await axios.get('/api/posts', {
+            params: {
+                page: page,
+                category: category,
+                order_column: order_column,
+                order_direction: order_direction
+            }
+        });
+
         posts.value = response.data;
     }
 
@@ -57,9 +70,19 @@ export default function usePosts() {
         laravelData.value = await response.json();
     }
 
+    // Paginated, sorted data returned from API call
+    const response = await axios.get('/api/posts?' +
+        'page=' + page +
+        '&category=' + category +
+        '&order_column=' + order_column +
+        '&order_direction=' + order_direction
+    );
+
 
     https://laravel-vue-pagination.org/
     https://vuejs.org/api/composition-api-setup.html
     https://vuejs.org/guide/reusability/composables.html
+
+    https://axios-http.com/docs/req_config
 
 */
