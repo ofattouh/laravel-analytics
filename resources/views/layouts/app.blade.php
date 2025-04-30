@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Evaluation Analytics App') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,13 +14,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
 
-        <!--
-        Vue will be "mounted" on main element of HTML structure, where Vue would live inside. Usually, it is one
-        of top div elements in main layout, and to identify it, we assign it id="app"
-        -->
-        <div class="min-h-screen bg-gray-100" id="app">
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

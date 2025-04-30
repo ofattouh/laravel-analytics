@@ -29,6 +29,9 @@ $composer suggest --all
 // Install Vue and Vue loader as dependancy
 $npm install vue vue-loader
 
+// Install Vue router as dependancy
+npm install vue-router@latest
+
 // Install Vue Vite plugin as Dev dependancy
 $npm install @vitejs/plugin-vue --save-dev
 
