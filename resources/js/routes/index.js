@@ -12,25 +12,25 @@ const routes = [
         path: '/dashboard',
         name: 'user.dashboard',
         component: UserDashboard,
-        meta: { title: 'LMS Analytics' }
+        meta: { title: 'EVALUATION ANALYTICS' }
     },
     {
         path: '/posts/create',
         name: 'posts.create',
         component: PostsCreate,
-        meta: { title: 'Add Post' }
+        meta: { title: 'CREATE POST' }
     },
     {
         path: '/posts/index',
         name: 'posts.index',
         component: PostsIndex,
-        meta: { title: 'Posts Listings' }
+        meta: { title: 'POSTS LISTINGS' }
     },
     {
         path: '/posts/index2',
         name: 'posts.index2',
         component: PostsIndex2,
-        meta: { title: 'Posts Listings' }
+        meta: { title: 'POSTS LISTINGS' }
     },
 ]
 
