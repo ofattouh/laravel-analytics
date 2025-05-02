@@ -5,32 +5,14 @@ window.Alpine = Alpine;
 Alpine.start();
 
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
 
 // Vue root/main component which has HTML main layout
 import App from './layouts/App.vue';
 
-// Declare Vue Components
-import UserDashboard from './components/UserDashboard.vue';
-import PostsCreate from './components/Posts/Create.vue';
-import PostsIndex from './components/Posts/Index.vue';
-import PostsIndex2 from './components/Posts/Index2.vue';
+// Vue routes definitions file
+import router from './routes/index';
 
-// Build list of routes
-const routes = [
-    { path: '/dashboard', component: UserDashboard },
-    { path: '/posts/create', component: PostsCreate },
-    { path: '/posts/index', component: PostsIndex },
-    { path: '/posts/index2', component: PostsIndex2 },
-]
-
-// Initialize the router
-const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
-
-// Initialize Vue app with Vue main layout root component (instead of PHP Laravel Blade files)
+// Initialize Vue app with Vue root component which has HTML main layout (instead of PHP Laravel Blade files)
 const app = createApp(App);
 
 // Enable Vue router
@@ -41,11 +23,10 @@ app.mount('#app');
 
 /*
 
-    // NOT passing any Vue components
+    // Initialize Vue app and NOT passing any Vue component
     const app = createApp({});
 
-    // Add Vue Components
+    // Add Vue Component
     app.component('posts-index', PostsIndex);
-    app.component('posts-index-2', PostsIndex2);
 
 */

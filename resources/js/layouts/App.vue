@@ -18,20 +18,23 @@
 
                         <!-- Navigation menu links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
                             <!-- The underline shown below each active link is created by adding these classes to active-class  -->
-                            <router-link to="/dashboard" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
+                            <router-link :to="{ name: 'user.dashboard' }" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
                                 DASHBOARD
                             </router-link>
 
-                            <router-link to="/posts/create" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
+                            <router-link :to="{ name: 'posts.create' }" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
                                 CREATE POST
                             </router-link>
 
-                            <router-link to="/posts/index" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
+                            <!--
+                            <router-link :to="{ name: 'posts.index' }" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
                                 DISPLAY POSTS
                             </router-link>
+                            -->
 
-                            <router-link to="/posts/index2" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
+                            <router-link :to="{ name: 'posts.index2' }" active-class="my-bolder-width my-color-burgundy" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
                                 DISPLAY POSTS
                             </router-link>
                         </div>
@@ -87,6 +90,6 @@
 
     `<router-view>` element is where all the main dynamic content will be loaded
 
-    https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/routing-nav-links-page
+    By defining/binding routes :to names, if route path is changed, we only need to change path in 1 file
 
 -->
