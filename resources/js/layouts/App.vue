@@ -85,7 +85,7 @@
         border-bottom-width: 2px;
     }
 
-    /* Active menu item border color */
+    /* Custom color style */
     .my-color-burgundy {
         border-color: #7a2531;
     }
