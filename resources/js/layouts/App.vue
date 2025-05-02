@@ -1,3 +1,14 @@
+<script setup>
+    import { computed } from 'vue';
+    import { useRoute } from 'vue-router'
+
+    // Composable component:route (Starts with the word use)
+    const route = useRoute();
+
+    // Dynamic reactive property:`title` is exposed using Composable component:route
+    const currentPageTitle = computed(() => route.meta.title);
+</script>
+
 <template>
     <div class="min-h-screen bg-gray-100">
 
@@ -46,9 +57,9 @@
         <!-- Page Header -->
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Hello user
-                </h3>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ currentPageTitle }}
+                </h2>
             </div>
         </header>
 
@@ -91,5 +102,8 @@
     `<router-view>` element is where all the main dynamic content will be loaded
 
     By defining/binding routes :to names, if route path is changed, we only need to change path in 1 file
+
+    To access route `meta`:`title` variable,use composable component:routes to get route `meta` with `title`
+
 
 -->

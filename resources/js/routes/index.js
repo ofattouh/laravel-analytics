@@ -11,22 +11,26 @@ const routes = [
     {
         path: '/dashboard',
         name: 'user.dashboard',
-        component: UserDashboard
+        component: UserDashboard,
+        meta: { title: 'LMS Analytics' }
     },
     {
         path: '/posts/create',
         name: 'posts.create',
-        component: PostsCreate
+        component: PostsCreate,
+        meta: { title: 'Add Post' }
     },
     {
         path: '/posts/index',
         name: 'posts.index',
-        component: PostsIndex
+        component: PostsIndex,
+        meta: { title: 'Posts Listings' }
     },
     {
         path: '/posts/index2',
         name: 'posts.index2',
-        component: PostsIndex2
+        component: PostsIndex2,
+        meta: { title: 'Posts Listings' }
     },
 ]
 
@@ -38,5 +42,7 @@ export default createRouter({
 
 /*
     By defining/binding routes :to names, if route path is changed, we only need to change path in 1 file
+
+    To make `title` dynamic for each page, add variable `meta` with `title` to each route
 
 */
