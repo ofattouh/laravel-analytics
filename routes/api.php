@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// API endpoint for route:posts used in `/api/posts` with GET method OR apiresource class method
+// API endpoint for route:posts used in `/api/posts` with GET method OR apiResource class method
 // Route::get('posts', [PostController::class, 'index']);  // references controller:Api:PostController
 Route::apiResource('posts', PostController::class);        // references controller:Api:PostController
 
