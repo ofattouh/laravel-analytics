@@ -12,6 +12,9 @@ use App\Models\Post;
 // Eloquent API Resource class
 use App\Http\Resources\PostResource;
 
+// Request Class:StorePostRequest used for Form validation
+use App\Http\Requests\StorePostRequest;
+
 class PostController extends Controller
 {
     public function index()
@@ -55,6 +58,16 @@ class PostController extends Controller
         // Paginated posts data with number of database records
         return PostResource::collection($posts);
     }
+
+    //
+    public function store(StorePostRequest $request)
+    {
+        // Validate Request when Form is submitted from Vue component:Posts/Create.vue,insert new Posts table entry
+        $post = Post::create($request->validated());
+
+        // return post resource object
+        return new PostResource($post);
+    }
 }
 
 /*
@@ -64,7 +77,9 @@ class PostController extends Controller
 
     `php artisan install:api`  // Prepare Laravel application for API routes
 
-    https://laravel-vue-pagination.org/
+
+    https://laraveldaily.com/lesson/laravel-beginners/form-validation-controller-form-requests
+    https://laravel.com/docs/12.x/validation#form-request-validation
     https://laravel.com/docs/12.x/queries#conditional-clauses
 
 */

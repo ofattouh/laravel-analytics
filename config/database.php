@@ -272,7 +272,7 @@ return [
 
     `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
 
-    `php artisan make:request StorePostRequest`     // Create Form Request class:StorePostRequest
+    `php artisan make:request StorePostRequest`     // Create Form class:StorePostRequest with Laravel validation rules
 
     `php artisan install:api`                       // Prepare Laravel application for API routes
 

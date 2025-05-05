@@ -1,9 +1,13 @@
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 // Composable reusable function
 export default function usePosts() {
     // Store object reference
     const posts = ref({});
+
+    // vue-router Composable component
+    const router = useRouter()
 
     const getPosts = async (
         page = 1,
@@ -24,8 +28,16 @@ export default function usePosts() {
         posts.value = response.data;
     }
 
-    // Return exposed reactive stateful data:`posts` and exposed method:`getPosts`
-    return { posts, getPosts }
+    const storePost = async (post) => {
+        // Save post to DB from this API call triggered from Form submit method of Vue component:Posts/Create.vue
+        const response = await axios.post('/api/posts', post);
+
+        // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
+        router.push({ name: 'posts.index2' });
+    }
+
+    // Return exposed reactive stateful data:`posts` and exposed methods:`getPosts`,`storePost`
+    return { posts, getPosts, storePost }
 }
 
 /*

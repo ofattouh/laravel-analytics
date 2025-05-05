@@ -18,7 +18,7 @@ const routes = [
         path: '/posts/create',
         name: 'posts.create',
         component: PostsCreate,
-        meta: { title: 'CREATE POST' }
+        meta: { title: 'SAVE POST' }
     },
     {
         path: '/posts/index',

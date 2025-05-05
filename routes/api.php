@@ -13,8 +13,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// API endpoint for route:posts to fetch DB posts from `/api/posts`
-Route::get('posts', [PostController::class, 'index']);
+// API endpoint for route:posts used in `/api/posts` with GET method OR apiresource class method
+// Route::get('posts', [PostController::class, 'index']);  // references controller:Api:PostController
+Route::apiResource('posts', PostController::class);        // references controller:Api:PostController
 
 // API endpoint for route:categories to fetch DB categories from `/api/categories`
 Route::get('categories', [CategoryController::class, 'index']);

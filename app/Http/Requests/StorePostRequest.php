@@ -22,11 +22,11 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Backend validation for required create posts form fields of controller:PostController store() method
-            // If validation fails, Laravel redirects back with error message(s) in the session
+            // Backend validation for Form fields of Vue component:Posts/Create.vue which submit to Api:PostController
+            // store() method. If validation fails, Laravel redirects back to same page with error message(s)
             'title' => ['required'],
             'text' => ['required'],
-            'category_id' => ['required'],
+            'category_id' => ['required',  'exists:categories,id'],
         ];
     }
 }
@@ -45,4 +45,6 @@ class StorePostRequest extends FormRequest
 
 
     https://laraveldaily.com/lesson/laravel-beginners/form-validation-controller-form-requests
+    https://laravel.com/docs/12.x/validation#form-request-validation
+
 */
