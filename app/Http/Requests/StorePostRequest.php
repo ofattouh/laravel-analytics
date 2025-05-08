@@ -29,6 +29,12 @@ class StorePostRequest extends FormRequest
             'category_id' => ['required',  'exists:categories,id'],
         ];
     }
+
+    // Rename DB fields to show human-friendly validation errors in Vue component:Posts/Create.vue
+    public function attributes(): array
+    {
+        return ['category_id' => 'category'];
+    }
 }
 
 /*

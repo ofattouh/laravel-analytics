@@ -9,6 +9,8 @@ export default function usePosts() {
     // vue-router Composable component
     const router = useRouter()
 
+    const validationErrors = ref({})
+
     const getPosts = async (
         page = 1,
         category = '',
@@ -30,14 +32,21 @@ export default function usePosts() {
 
     const storePost = async (post) => {
         // Save post to DB from this API call triggered from Form submit method of Vue component:Posts/Create.vue
-        const response = await axios.post('/api/posts', post);
+        axios.post('/api/posts', post)
+            .then(response => {
+                // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
+                router.push({ name: 'posts.index2' });;
+            })
+            .catch(error => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors; // Save errors
+                }
+            })
 
-        // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
-        router.push({ name: 'posts.index2' });
     }
 
-    // Return exposed reactive stateful data:`posts` and exposed methods:`getPosts`,`storePost`
-    return { posts, getPosts, storePost }
+    // Return exposed reactive stateful data and exposed methods
+    return { posts, getPosts, storePost, validationErrors }
 }
 
 /*

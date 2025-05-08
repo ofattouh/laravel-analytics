@@ -8,8 +8,8 @@
     // Get reactive stateful data,method using Composable component:useCategories
     const { categories, getCategories } = useCategories();
 
-    // Get reactive stateful method using Composable component:usePosts
-    const { storePost } = usePosts();
+    // Get reactive stateful error data, method using Composable component:usePosts
+    const { storePost, validationErrors } = usePosts();
 
     // `post` parameters needs to be reactive object for `storePost(post)` method
     const post = reactive({
@@ -30,12 +30,26 @@
         <div>
             <label for="post-title" class="block text-sm font-medium text-gray-700">Title</label>
             <input v-model="post.title" id="post-title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+
+            <!-- Validation Errors -->
+            <div class="text-red-600 mt-1">
+                <div v-bind:key="message" v-for="message in validationErrors?.title">
+                    {{ message }}
+                </div>
+            </div>
         </div>
 
         <!-- Content -->
         <div class="mt-4">
             <label for="post-content" class="block text-sm font-medium text-gray-700">Content</label>
             <textarea v-model="post.text" id="post-content" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+
+            <!-- Validation Errors -->
+            <div class="text-red-600 mt-1">
+                <div v-bind:key="message" v-for="message in validationErrors?.text">
+                    {{ message }}
+                </div>
+            </div>
         </div>
 
         <!-- Category -->
@@ -50,6 +64,13 @@
                     {{ category.name }}
                 </option>
             </select>
+
+            <!-- Validation Errors -->
+            <div class="text-red-600 mt-1">
+                <div v-bind:key="message" v-for="message in validationErrors?.category_id">
+                    {{ message }}
+                </div>
+            </div>
         </div>
 
         <!-- Buttons -->
