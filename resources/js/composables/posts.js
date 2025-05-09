@@ -10,6 +10,7 @@ export default function usePosts() {
     const router = useRouter()
 
     const validationErrors = ref({})
+    const isLoading = ref(false) // default:false
 
     const getPosts = async (
         page = 1,
@@ -31,8 +32,15 @@ export default function usePosts() {
     }
 
     const storePost = async (post) => {
+        // don't submit the form twice
+        if (isLoading.value) return;
+
+        // Continue processing and reset errors
+        isLoading.value = true;
+        validationErrors.value = {};
+
         // Save post to DB from this API call triggered from Form submit method of Vue component:Posts/Create.vue
-        axios.post('/api/posts', post)
+        await axios.post('/api/posts', post)
             .then(response => {
                 // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
                 router.push({ name: 'posts.index2' });;
@@ -40,13 +48,13 @@ export default function usePosts() {
             .catch(error => {
                 if (error.response?.data) {
                     validationErrors.value = error.response.data.errors; // Save errors
+                    isLoading.value = false // Allow resubmiting form because of validation errors
                 }
             })
-
     }
 
     // Return exposed reactive stateful data and exposed methods
-    return { posts, getPosts, storePost, validationErrors }
+    return { posts, getPosts, storePost, validationErrors, isLoading }
 }
 
 /*
@@ -75,6 +83,8 @@ export default function usePosts() {
 
     When using Options API, composable functions must be called inside setup(), and returned bindings must also be
     returned from setup() so that composable functions reactive data is exposed to `this` context in Vue template
+
+    If form takes longer to submit, we need loading indicator,disable submit button so user wouldn't hit it twice.
 
 
     const posts = ref([])
