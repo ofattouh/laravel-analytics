@@ -62,6 +62,12 @@ class PostController extends Controller
     //
     public function store(StorePostRequest $request)
     {
+        // Simulate file upload, check if file exists and display filename in Laravel Log
+        if ($request->hasFile('thumbnail')) {
+            $filename = $request->file('thumbnail')->getClientOriginalName();
+            info($filename);
+        }
+
         // Validate Request when Form is submitted from Vue component:Posts/Create.vue,insert new Posts table entry
         $post = Post::create($request->validated());
 

@@ -39,8 +39,18 @@ export default function usePosts() {
         isLoading.value = true;
         validationErrors.value = {};
 
+        // Serialize and store post data
+        let serializedPost = new FormData();
+
+        for (let item in post) {
+            if (post.hasOwnProperty(item)) {
+                serializedPost.append(item, post[item])
+            }
+        }
+
+
         // Save post to DB from this API call triggered from Form submit method of Vue component:Posts/Create.vue
-        await axios.post('/api/posts', post)
+        await axios.post('/api/posts', serializedPost)
             .then(response => {
                 // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
                 router.push({ name: 'posts.index2' });;
