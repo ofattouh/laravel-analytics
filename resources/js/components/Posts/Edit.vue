@@ -1,5 +1,6 @@
 <script setup>
-    import { onMounted, reactive} from 'vue';
+    import { onMounted } from 'vue';
+    import { useRoute } from "vue-router";
 
     // import Vue composables reusable components
     import useCategories from '@/composables/categories';
@@ -9,23 +10,19 @@
     const { categories, getCategories } = useCategories();
 
     // Get reactive stateful data, method using Composable component:usePosts
-    const { storePost, validationErrors, isLoading } = usePosts();
+    const { post, getPost, updatePost, validationErrors, isLoading } = usePosts();
 
-    // `post` parameters needs to be reactive object for `storePost(post)` method
-    const post = reactive({
-        title: '',
-        text: '',
-        category_id: '',
-        thumbnail: ''
-    })
+    // use vue-router Composable useRoute to get the ID from URL
+    const route = useRoute();
 
     onMounted(() => {
+        getPost(route.params.id);
         getCategories();
     })
 </script>
 
 <template>
-    <form @submit.prevent="storePost(post)">
+    <form @submit.prevent="updatePost(post)">
 
         <!-- Title -->
         <div>
@@ -74,19 +71,6 @@
             </div>
         </div>
 
-        <!-- File input: Thumbnail -->
-        <div class="mt-4">
-            <label for="thumbnail" class="block font-medium text-sm text-gray-700">Upload File</label>
-            <input type="file" id="thumbnail" @change="post.thumbnail = $event.target.files[0]" />
-
-            <!-- Validation Errors -->
-            <div class="text-red-600 mt-1">
-                <div v-bind:key="message" v-for="message in validationErrors?.thumbnail">
-                    {{ message }}
-                </div>
-            </div>
-        </div>
-
         <!-- Buttons -->
         <div class="mt-4">
             <!-- Bind disabled attribute to isLoading variable -->
@@ -111,8 +95,5 @@
 <!--
 
     `v-model` Directive adds two-way data binding for HTML fields
-
-    File input can not use `v-model`,instead listen for @change event, and select first file from array
-
 
 -->

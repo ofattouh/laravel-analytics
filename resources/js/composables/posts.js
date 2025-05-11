@@ -3,14 +3,23 @@ import { useRouter } from 'vue-router'
 
 // Composable reusable function
 export default function usePosts() {
-    // Store object reference
+    // Store objects references
     const posts = ref({});
+    const post = ref({})
 
     // vue-router Composable component
     const router = useRouter()
 
     const validationErrors = ref({})
     const isLoading = ref(false) // default:false
+
+    // Get single post from Vue Edit component
+    const getPost = async (id) => {
+        await axios.get('/api/posts/' + id)
+            .then(response => {
+                post.value = response.data.data;
+            })
+    }
 
     const getPosts = async (
         page = 1,
@@ -63,8 +72,27 @@ export default function usePosts() {
             })
     }
 
-    // Return exposed reactive stateful data and exposed methods
-    return { posts, getPosts, storePost, validationErrors, isLoading }
+    // Update single post from Vue Edit component
+    const updatePost = async (post) => {
+        if (isLoading.value) return;
+
+        isLoading.value = true
+        validationErrors.value = {}
+
+        await axios.put('/api/posts/' + post.id, post)
+            .then(response => {
+                router.push({ name: 'posts.index2' })
+            })
+            .catch(error => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors
+                }
+            })
+            .finally(() => isLoading.value = false)
+    }
+
+    // Return exposed reactive stateful data and methods
+    return { posts, post, getPosts, getPost, storePost, updatePost, validationErrors, isLoading }
 }
 
 /*

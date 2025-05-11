@@ -5,6 +5,7 @@ import UserDashboard from '@/components/UserDashboard.vue';
 import PostsCreate from '@/components/Posts/Create.vue';
 import PostsIndex from '@/components/Posts/Index.vue';
 import PostsIndex2 from '@/components/Posts/Index2.vue';
+import PostsEdit from '@/components/Posts/Edit.vue';
 
 // Build list of routes
 const routes = [
@@ -31,6 +32,12 @@ const routes = [
         name: 'posts.index2',
         component: PostsIndex2,
         meta: { title: 'POSTS LISTINGS' }
+    },
+    {
+        path: '/posts/edit/:id',
+        name: 'posts.edit',
+        component: PostsEdit,
+        meta: { title: 'EDIT POST' }
     },
 ]
 

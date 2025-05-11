@@ -74,6 +74,22 @@ class PostController extends Controller
         // return post resource object
         return new PostResource($post);
     }
+
+    // Show single post from Vue Edit component
+    public function show(Post $post)
+    {
+        return new PostResource($post);
+    }
+
+    // Save updated single post from Vue Edit component
+    public function update(Post $post, StorePostRequest $request)
+    {
+        // Validate Request when Form is submitted from Vue component:Posts/Edit.vue
+        $post->update($request->validated());
+
+        // return post resource object
+        return new PostResource($post);
+    }
 }
 
 /*
