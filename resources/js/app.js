@@ -12,11 +12,16 @@ import App from './layouts/App.vue';
 // Vue routes definitions file
 import router from './routes/index';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+
 // Initialize Vue app with Vue root component which has HTML main layout (instead of PHP Laravel Blade files)
 const app = createApp(App);
 
 // Enable Vue router
 app.use(router) ;
+
+// Enable package
+app.use(VueSweetalert2)
 
 // Mount Vue components to id="app" defined in view: dashboard.blade.php
 app.mount('#app');

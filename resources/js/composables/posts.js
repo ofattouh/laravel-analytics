@@ -1,5 +1,5 @@
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
 
 // Composable reusable function
 export default function usePosts() {
@@ -12,6 +12,9 @@ export default function usePosts() {
 
     const validationErrors = ref({})
     const isLoading = ref(false) // default:false
+
+    // Add alert package
+    const swal = inject('$swal');
 
     // Get single post from Vue Edit component
     const getPost = async (id) => {
@@ -62,7 +65,13 @@ export default function usePosts() {
         await axios.post('/api/posts', serializedPost)
             .then(response => {
                 // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
-                router.push({ name: 'posts.index2' });;
+                router.push({ name: 'posts.index2' });
+
+                // Show alert message
+                swal({
+                    icon: 'success',
+                    title: 'Post saved successfully!'
+                })
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -82,6 +91,12 @@ export default function usePosts() {
         await axios.put('/api/posts/' + post.id, post)
             .then(response => {
                 router.push({ name: 'posts.index2' })
+
+                // Show alert message
+                swal({
+                    icon: 'success',
+                    title: 'Post updated successfully!'
+                })
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -153,5 +168,9 @@ export default function usePosts() {
     https://vuejs.org/guide/reusability/composables.html
 
     https://axios-http.com/docs/req_config
+
+    https://github.com/sweetalert2/sweetalert2
+    https://github.com/avil13/vue-sweetalert2
+    https://sweetalert2.github.io/
 
 */
