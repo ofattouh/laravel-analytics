@@ -13,7 +13,7 @@ export default function usePosts() {
     const validationErrors = ref({})
     const isLoading = ref(false) // default:false
 
-    // Add alert package
+    // Define sweetalert package
     const swal = inject('$swal');
 
     // Get single post from Vue Edit component
@@ -106,8 +106,49 @@ export default function usePosts() {
             .finally(() => isLoading.value = false)
     }
 
+    // Delete `post` id
+    const deletePost = async (id) => {
+        swal({
+            title: 'Are you sure?',
+            text: 'This action can\'t be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete!',
+            confirmButtonColor: '#ef4444',
+            // timer: 20000, // for user non activity and timer (ms) runs out, confirmation automatically applies
+            // timerProgressBar: true,
+            // reverseButtons: true
+        })
+        .then(result => {
+            if (result.isConfirmed) {
+                axios.delete('/api/posts/' + id)
+                    .then(response => {
+                        // refresh posts
+                        getPosts();
+
+                        // redirect request
+                        router.push({ name: 'posts.index2' });
+
+                        // Show alert message
+                        swal({
+                            icon: 'success',
+                            title: 'Post deleted successfully!'
+                        })
+                    })
+                    .catch(error => {
+                        console.log('Error deleting post: ', error);
+
+                        swal({
+                            icon: 'error',
+                            title: 'Error deleting post!'
+                        })
+                    })
+            }
+        })
+    }
+
     // Return exposed reactive stateful data and methods
-    return { posts, post, getPosts, getPost, storePost, updatePost, validationErrors, isLoading }
+    return { posts, post, getPosts, getPost, storePost, updatePost, deletePost, validationErrors, isLoading }
 }
 
 /*

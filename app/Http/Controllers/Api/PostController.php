@@ -90,6 +90,15 @@ class PostController extends Controller
         // return post resource object
         return new PostResource($post);
     }
+
+    // Delete post
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        // return nothing since record is deleted which will return 204 HTTP status code
+        return response()->noContent();
+    }
 }
 
 /*

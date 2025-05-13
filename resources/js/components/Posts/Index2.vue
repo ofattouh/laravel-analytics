@@ -13,8 +13,8 @@
     const orderColumn = ref('updated_at')
     const orderDirection = ref('desc')
 
-    // Composable function:usePosts expose all data
-    const { posts, getPosts } = usePosts()
+    // Composable function:usePosts expose all data and methods
+    const { posts, getPosts, deletePost } = usePosts()
 
     // Composable function:useCategories expose all data
     const { categories, getCategories } = useCategories()
@@ -199,7 +199,8 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                            <router-link :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link>
+                            <router-link :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link><br>
+                            <a href="#" @click.prevent="deletePost(post.id)" class="my-color-burgundy">Delete</a>
                         </td>
                     </tr>
                 </tbody>
