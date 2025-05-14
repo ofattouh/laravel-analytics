@@ -13,7 +13,7 @@ export default function usePosts() {
     const validationErrors = ref({})
     const isLoading = ref(false) // default:false
 
-    // Define sweetalert package
+    // Define sweetalert package variable
     const swal = inject('$swal');
 
     // Get single post from Vue Edit component
@@ -26,7 +26,11 @@ export default function usePosts() {
 
     const getPosts = async (
         page = 1,
-        category = '',
+        search_category = '',
+        search_id = '',
+        search_title = '',
+        search_content = '',
+        search_global = '',
         order_column = 'updated_at',
         order_direction = 'desc'
     ) => {
@@ -34,7 +38,11 @@ export default function usePosts() {
         const response = await axios.get('/api/posts', {
             params: {
                 page: page,
-                category: category,
+                search_category: search_category,
+                search_id: search_id,
+                search_title: search_title,
+                search_content: search_content,
+                search_global: search_global,
                 order_column: order_column,
                 order_direction: order_direction
             }

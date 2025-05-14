@@ -47,10 +47,28 @@ class PostController extends Controller
 
         // Eloquent conditional clause: when() method, accepts where condition as first parameter. If condition
         // is true, Eloquent will execute closure function which is second parameter of when() method
-        // Meaning: if `category` from request exists, this where condition closure will be added to query
+        // Meaning: if `search_variable` from request exists, this where condition closure will be added to query
+        // Added prefix search_ to each DB search column/variable
         $posts = Post::with('category')
-            ->when(request('category'), function (Builder $query) {
-                $query->where('category_id', request('category'));
+            ->when(request('search_category'), function (Builder $query) {
+                $query->where('category_id', request('search_category'));
+            })
+            ->when(request('search_id'), function (Builder $query) {
+                $query->where('id', request('search_id'));
+            })
+            ->when(request('search_title'), function (Builder $query) {
+                $query->where('title', 'like', '%' . request('search_title') . '%');
+            })
+            ->when(request('search_content'), function (Builder $query) {
+                $query->where('text', 'like', '%' . request('search_content') . '%');
+            })
+            ->when(request('search_global'), function (Builder $query) {
+                $query->whereAny([ // Query any of following DB fields
+                    'category_id',
+                    'id',
+                    'title',
+                    'text',
+                ], 'LIKE', '%' . request('search_global') . '%');
             })
             ->orderBy($orderColumn, $orderDirection)
             ->paginate($numberRecords);

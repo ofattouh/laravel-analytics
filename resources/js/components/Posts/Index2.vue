@@ -6,30 +6,113 @@
     import usePosts from "@/composables/posts";
     import useCategories from "@/composables/categories";
 
-    // Store reference to selected category
-    const selectedCategory = ref('')
+    // Store reference to search/filter variables
+    const search_category = ref('');
+    const search_id = ref('');
+    const search_title = ref('');
+    const search_content = ref('');
+    const search_global = ref('');
 
     // Store reference to sorting default parameters
-    const orderColumn = ref('updated_at')
-    const orderDirection = ref('desc')
+    const orderColumn = ref('updated_at');
+    const orderDirection = ref('desc');
 
     // Composable function:usePosts expose all data and methods
-    const { posts, getPosts, deletePost } = usePosts()
+    const { posts, getPosts, deletePost } = usePosts();
 
     // Composable function:useCategories expose all data
-    const { categories, getCategories } = useCategories()
+    const { categories, getCategories } = useCategories();
 
     // Update sorted column: By default, table is ordered by `updated_at` field in `desc` order
     const updateOrdering = (column) => {
-        orderColumn.value = column
-        orderDirection.value = (orderDirection.value === 'asc') ? 'desc' : 'asc' // Toggle value
-        getPosts(1, selectedCategory.value, orderColumn.value, orderDirection.value)
+        orderColumn.value = column;
+        orderDirection.value = (orderDirection.value === 'asc') ? 'desc' : 'asc'; // Toggle value
+
+        getPosts(
+            1,
+            search_category.value,
+            search_id.value,
+            search_title.value,
+            search_content.value,
+            search_global.value,
+            orderColumn.value,
+            orderDirection.value,
+        );
     }
 
-    // Watch `selectedCategory` variable for changes of two values: current and previous
-    // Pass page number, current selectedCategory, orderColumn, orderDirection to getPosts()
-    watch(selectedCategory, (current, previous) => {
-        getPosts(1, current, orderColumn.value, orderDirection.value)
+    // Watch `search_category` variable for changes of two values: current and previous
+    // Pass page number, current value for search_category, other variables to getPosts()
+    watch(search_category, (current, previous) => {
+        getPosts(
+            1,
+            current,
+            search_id.value,
+            search_title.value,
+            search_content.value,
+            search_global.value,
+            orderColumn.value,
+            orderDirection.value,
+        );
+    })
+
+    // Watch `search_id` variable for changes of two values: current and previous
+    // Pass page number, current value for search_id, other variables to getPosts()
+    watch(search_id, (current, previous) => {
+        getPosts(
+            1,
+            search_category.value,
+            current,
+            search_title.value,
+            search_content.value,
+            search_global.value,
+            orderColumn.value,
+            orderDirection.value,
+        )
+    })
+
+    // Watch `search_title` variable for changes of two values: current and previous
+    // Pass page number, current value for search_title, other variables to getPosts()
+    watch(search_title, (current, previous) => {
+        getPosts(
+            1,
+            search_category.value,
+            search_id.value,
+            current,
+            search_content.value,
+            search_global.value,
+            orderColumn.value,
+            orderDirection.value,
+        )
+    })
+
+    // Watch `search_content` variable for changes of two values: current and previous
+    // Pass page number, current value for search_content, other variables to getPosts()
+    watch(search_content, (current, previous) => {
+        getPosts(
+            1,
+            search_category.value,
+            search_id.value,
+            search_title.value,
+            current,
+            search_global.value,
+            orderColumn.value,
+            orderDirection.value,
+        )
+    })
+
+    // Watch `search_global` variable for changes of two values: current and previous
+    // Pass page number, current value for search_global, other variables to getPosts()
+    watch(search_global, (current, previous) => {
+        getPosts(
+            1,
+            search_category.value,
+            search_id.value,
+            search_title.value,
+            search_content.value,
+            current,
+            orderColumn.value,
+            orderDirection.value,
+        )
     })
 
     // called only when component finish loading
@@ -43,21 +126,44 @@
     <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
         <div class="min-w-full align-middle">
 
-            <!-- Add Vue Composable:categories to show all categories -->
-            <!-- Loop through categories stateful reactive variable passed from Vue composable function:useCategories -->
-            <div class="mb-4">
-                <span class="my-color-burgundy">Filter by Category</span>
-
-                <select v-model="selectedCategory" class="block mt-1 w-full sm:w-1/4 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="" selected>-- Please select value --</option>
-                    <option v-bind:key="category.id" v-for="category in categories.data" :value="category.id" >
-                        {{ category.name }}
-                    </option>
-                </select>
+            <!-- Global Search variable -->
+            <div class="mb-4 grid lg:grid-cols-4">
+                <input v-model="search_global" type="text" placeholder="Search table..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             </div>
 
             <table class="min-w-full divide-y divide-gray-200 border">
                 <thead>
+                    <!-- Search/Filter variables -->
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <input v-model="search_id" type="text" class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Filter by ID" />
+                        </th>
+
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <input v-model="search_title" type="text" class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Filter by Title" />
+                        </th>
+
+                        <!-- Add Vue Composable:categories to show all categories -->
+                        <!-- Loop through categories stateful reactive variable passed from Vue composable function:useCategories -->
+
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <select v-model="search_category" class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <option value="" selected>-- All Categories --</option>
+                                <option v-bind:key="category.id" v-for="category in categories.data" :value="category.id">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                        </th>
+
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <input v-model="search_content" type="text" class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Filter by Content" />
+                        </th>
+
+                        <th class="px-6 py-3 bg-gray-50 text-left"></th>
+                        <th class="px-6 py-3 bg-gray-50 text-left"></th>
+                        <th class="px-6 py-3 bg-gray-50 text-left"></th>
+                    </tr>
+
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-left">
                             <!-- Add up/down arrows to table column headings, to show sorting directions -->
@@ -207,13 +313,13 @@
             </table>
 
             <!-- Tailwind pagination links, Limit should match `numberRecords` of Api/PostController:index method,
-                Pass page number,selected category,order column,order direction to getPosts to fix pagination -->
+                Pass page number,search variables,order column,order direction to getPosts to fix pagination -->
             <TailwindPagination
                 :data="posts"
                 :limit="10"
                 :keepLength="true"
                 class="mt-4"
-                @pagination-change-page="page => getPosts(page, selectedCategory, orderColumn, orderDirection)"
+                @pagination-change-page="page => getPosts(page, search_category, search_id, search_title, search_content, search_global, orderColumn, orderDirection)"
             />
         </div>
     </div>
