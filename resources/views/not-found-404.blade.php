@@ -10,7 +10,13 @@
                 <div class="p-6">
                     <h2>
                         {{ __('Page is not found!') }} <br><br>
-                        {{ __('Please enter correct page URL')}}
+                        {{ __('Please enter correct page URL')}} <br><br>
+
+                        @auth
+                            <!-- Hyperlink ONLY shown for Guests -->
+                        @else
+                            <a href="/"><span style="text-decoration: underline;">Evaluation App<span></a>
+                        @endauth
                     </h2>
                 </div>
             </div>

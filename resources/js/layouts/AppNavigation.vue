@@ -14,7 +14,9 @@
 </script>
 
 <template>
-    <div>
+    <!-- Navigation section ONLY shown for logged in user -->
+    <div v-show="isUserFound">
+
         <!-- Primary Navigation Top Menu -->
         <nav class="bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,8 +60,8 @@
                     <div class="flex items-center">
                         <div class="flex">
                             <div>
-                                <div v-show="isUserFound">Hi, {{ user.name }}</div>
-                                <div v-show="isUserFound" class="text-sm text-gray-500">{{ user.email }}</div>
+                                <div>Hi, {{ user.name }}</div>
+                                <div class="text-sm text-gray-500">{{ user.email }}</div>
                             </div>
                         </div>
 
