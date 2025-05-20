@@ -28,7 +28,7 @@ Route::get('categories', [CategoryController::class, 'index']);
     No additional RESTful routes are needed for methods of Controller:PostController, because ALL routes
     are defined in Route::apiResource()
 
-    IMPORTANT:
+    // IMPORTANT
     Authentication routes in routes/api.php use API token for authentication and API routes do NOT support
     session storage unlike routes/web.php with middleware `web` so routes/api.php can NOT store user data in
     session and Auth::user() always returns null,as explained here: https://stackoverflow.com/a/44863089/13729121
