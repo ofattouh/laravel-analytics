@@ -10,7 +10,7 @@
                 <div class="p-6">
                     <h2>
                         {{ __('Page is not found!') }} <br><br>
-                        {{ __('Please enter correct page web address')}}
+                        {{ __('Please enter correct page URL')}}
                     </h2>
                 </div>
             </div>
