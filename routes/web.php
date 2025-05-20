@@ -9,32 +9,75 @@ Route::get('/', function () {
 
 // Authetication routes
 
-// OR Method 2 using Route group where we add methods on Route facade: middleware, prefix, etc., then use
-// group method with closure and add all Routes protected with middleware: `auth` inside this closure
+// Using route group instead of defining individual routes,add methods on Route facade: middleware, then use
+// group method with closure and add all routes protected with middleware: `auth` inside this closure
 Route::middleware('auth')->group(function () {
 
-    // Point /posts/{whereIn} route to dashboard view, so they are loaded inside Vue HTML main layout root component
-    Route::get('/posts/{post}', function (string $post) {
-        return view('dashboard');
-    })->name('dashboard')->whereIn('post', ['create', 'index', 'index2']);
+    // Added by Breeze Laravel package
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Using HTML Hyperlink instead of `router-link`
+    Route::get('/posts/index', function () {
+        return view('posts-listings');
+    });
+
+    // Using HTML Hyperlink instead of `router-link`
+    Route::get('/posts/index2', function () {
+        return view('posts-listings-2');
+    });
+
+    // Using HTML Hyperlink instead of `router-link`
+    Route::get('/posts/create', function () {
+        return view('post-create');
+    });
+
+    // Using HTML Hyperlink instead of `router-link`
+    Route::get('/posts/edit/{id}', function (string $id) {
+        return view('post-edit');
+    })->where('id', '[0-9]+');
+
+    // Using HTML Hyperlink instead of `router-link`
+    Route::get('/user/dashboard', function () {
+        return view('my-user-dashboard');
+    })->name('user.dashboard');
 
     // Method middleware, with auth as parameter: only authenticated logged-in users can access this view
-    Route::get('/dashboard', function () {
+     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
+    // Logout user when button in AppNavigation.vue is clicked using Laravel Breeze package
+    Route::post('logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy']);
+
+    // Get logged in user info in AppNavigation.vue using Laravel Backend
+    Route::get('userinfo', [\App\Http\Controllers\MyUserController::class, 'getUserInfo']);
+
+    // Redirect route:dashboard to another custom route
+    Route::get('/dashboard', function () {
+        return redirect('/user/dashboard');
+    });
+
 });
 
-// Auth routes file define all routes required for authentication: login, registration, logout and forgot password
+// Route executed when no other route matches requests instead of showing Laravel default "404" page for unhandled requests
+Route::fallback(function () {
+    return view('not-found-404');
+});
+
+// Auth routes file define all routes required for authentication: login, registration, logout and forgot password (Laravel Breeze package)
 require __DIR__.'/auth.php';
 
 /*
     Middleware runs checks before Routes, and if it returns false, it shows errors or redirect to error page.
-    Example: Using auth middleware, if someone wants to visit the /dashboard URL, protected with auth Middleware,
-    they will automatically get redirected to login page
+    Example: Using auth middleware, if users want to visit the /dashboard URL, protected with auth Middleware,
+    they will automatically get redirected to login URL defined in Laravel Breeze Login redirect method
 
     We should assign category resource route to auth Middleware to protect it. We could add middleware() method to
-    Route and provide Middleware, or if Route has multiple Middlewares provide them as array. Use Route group instead
+    each Route and provide Middleware, or if Route has multiple Middlewares provide them as array using Route group instead
+
+    Route names should always be unique
 
     Route::view('/', 'dashboard')->name('dashboard');
 
@@ -46,12 +89,6 @@ require __DIR__.'/auth.php';
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('is_admin');
 
     Route::middleware('auth')->group(function () {
-
-        // Added by Breeze Laravel package
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
         // Point any route to dashboard view so they are loaded inside Vue HTML main layout root component
         Route::view('/{any?}', 'dashboard')->where('any', '.*');
 
@@ -60,6 +97,16 @@ require __DIR__.'/auth.php';
             return view('dashboard');
         })->name('dashboard')->where('any', '.*');
 
+        // Point /posts/{whereIn} route to dashboard view so they are loaded inside Vue HTML main layout root component
+        Route::get('/posts/{post}', function (string $post) {
+            return view('dashboard');
+        })->name('dashboard')->whereIn('post', ['create', 'index', 'index2']);
+
+        // Optional route parameter `name ` by adding question mark with default value of null
+        Route::get('/user/{name?}', function (?string $name = null) {
+            return $name;
+        });
+
         // Resource route name: categories used inside View files:create/edit/index of directory categories where
         // each route method is constructed from route name dot controller method name (Ex:categories.index).
         // Restrict access to categories and posts routes to admin user
@@ -67,21 +114,17 @@ require __DIR__.'/auth.php';
             Route::resource('categories', \App\Http\Controllers\CategoryController::class);
             Route::resource('posts', \App\Http\Controllers\PostController::class);
         });
-
-        // Anchor link to posts instead of defining routes in any Controller method (Method 1: Vue Options API)
-        Route::get('/posts-listings', function () {
-            return view('posts-listings');
-        });
-
-        // Anchor link to posts instead of defining routes in any Controller method (Method 2: Vue Composition API/Composable function)
-        Route::get('/posts-listings-2', function () {
-            return view('posts-listings-2');
-        });
     });
 
 
-    For Laravel routes: we use `vue-router` for front-end routing along with web.php for back-end routing
+    // IMPORTANT
+    Had to change navigation links from `router-link` to hyperlinks because `vue-router` routing conflicts with
+    Laravel routes/web.php routing,and router.push() no longer redirects to other routes because of this change
+
+    Could of used `vue-router` for front-end routing but it conflicts with web.php Laravel back-end routing
 
     https://laravel.com/docs/12.x/routing
+    https://laravel.com/docs/12.x/responses
+    https://laravel.com/docs/12.x/authentication
 
 */

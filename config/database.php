@@ -237,6 +237,8 @@ return [
 
     `php artisan cache:clear`             // Clear application cache
 
+    `php artisan optimize:clear`          // Clear composer/config/cache and optimize Dependancies
+
     `php artisan config:cache`            // Rebuild app configuration cache
 
     `php artisan make:model Category`     // Create Model:Category class file (1 artisan command)
@@ -268,13 +270,21 @@ return [
     `php artisan make:controller Api/PostController`     // Create controller:PostController for API endpoint
     `php artisan make:controller Api/CategoryController` // Create controller:CategoryController for API endpoint
 
-    `php artisan route:list`                         // Check available Routes
+    `php artisan route:list`                        // List available Routes
+
+    `php artisan route:list -v`                     // List available Routes,route middleware/group names
+
+    `php artisan route:list -vv`                    // List available Routes,route middleware/group names(expanded)
+
+    `php artisan route:cache`                       // Cache routes loaded on requests (Prod Deployment)
+
+    `php artisan route:clear`                       // Clear routes cache
 
     `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
 
     `php artisan make:request StorePostRequest`     // Create Form class:StorePostRequest with Laravel validation rules
 
-    `php artisan install:api`                       // Prepare Laravel application for API routes
+    `php artisan install:api`                       // Install Laravel application API routes
 
     `php artisan config:publish cors`               // Publish cors configuration file in config/cors.php
 

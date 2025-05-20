@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Posts Listings') }}
-        </h2>
+        <!-- Display Vue component -->
+        <app-navigation></app-navigation>
     </x-slot>
 
     <div class="py-12">

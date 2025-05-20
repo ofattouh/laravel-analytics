@@ -20,6 +20,9 @@ $php artisan breeze:install
 // Install Laravel DebugBar package as Dev dependancy to test how many queries are executed
 $composer require barryvdh/laravel-debugbar --dev
 
+// Remove Dependancy/Required package using composer
+$composer remove barryvdh/laravel-debugbar --dev
+
 // Install Laravel module installer Globally
 $composer global require laravel/installer
 

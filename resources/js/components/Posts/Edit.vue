@@ -15,8 +15,18 @@
     // use vue-router Composable useRoute to get the ID from URL
     const route = useRoute();
 
+    // Get post ID using Javascript instead of using Vue Router for navigation because of routing conflict with Laravel routing
+    // http://example.com/posts/edit/{id}
+    const getPostID = () => {
+        const url = new URL(window.location);
+        const pathSegments = url.pathname.split('/');
+        const id = pathSegments[3];
+        return id;
+    }
+
     onMounted(() => {
-        getPost(route.params.id);
+        // getPost(route.params.id);
+        getPost(getPostID());
         getCategories();
     })
 </script>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Declare Vue Components
-import UserDashboard from '@/components/UserDashboard.vue';
+import UserDashboard from '@/components/User/UserDashboard.vue';
 import PostsCreate from '@/components/Posts/Create.vue';
 import PostsIndex from '@/components/Posts/Index.vue';
 import PostsIndex2 from '@/components/Posts/Index2.vue';
@@ -10,10 +10,10 @@ import PostsEdit from '@/components/Posts/Edit.vue';
 // Build list of routes
 const routes = [
     {
-        path: '/dashboard',
+        path: '/user/dashboard',
         name: 'user.dashboard',
         component: UserDashboard,
-        meta: { title: 'EVALUATION ANALYTICS' }
+        meta: { title: 'DASHBOARD' }
     },
     {
         path: '/posts/create',
@@ -51,5 +51,12 @@ export default createRouter({
     By defining/binding routes :to names, if route path is changed, we only need to change path in 1 file
 
     To make `title` dynamic for each page, add variable `meta` with `title` to each route
+
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: UserDashboard,
+        meta: { title: 'EVALUATION ANALYTICS' }
+    },
 
 */

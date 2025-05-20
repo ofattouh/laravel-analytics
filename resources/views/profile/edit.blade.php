@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
+        <!-- Display Vue component -->
+        <app-navigation></app-navigation>
     </x-slot>
 
     <div class="py-12">
@@ -27,3 +26,10 @@
         </div>
     </div>
 </x-app-layout>
+
+
+<!--
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Profile') }}
+    </h2>
+-->

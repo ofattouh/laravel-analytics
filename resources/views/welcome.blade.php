@@ -27,10 +27,10 @@
                 <nav class="flex items-center justify-end gap-4">
                     @auth
                         <a
-                            href="{{ url('/dashboard') }}"
+                            href="{{ url('/user/dashboard') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
-                            Admin Dashboard
+                            ADMIN DASHBOARD
                         </a>
                     @else
                         <a
@@ -59,17 +59,19 @@
                     <h1 class="mb-1 font-medium">EVALUATION ANALYTICS PLATFORM</h1><br>
 
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Welcome to Evaluation Analytics app!
+                        Welcome to Evaluation Analytics Platform!
                     </p>
                     <br>
 
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Please login or register to access the backend.
+                        Please login or register to access the app backend.
                     </p>
                     <br>
 
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        For any technical issues, please contact customer support or create Solarwind ticket.
+                        For Technical issues, please
+                        <a href="#"><span style="text-decoration: underline;">contact</span></a> customer support
+                        or create a <a href="#"><span style="text-decoration: underline;">ticket</span></a>
                     </p>
                     <br>
                 </div>

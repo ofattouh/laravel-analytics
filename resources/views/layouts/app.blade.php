@@ -15,9 +15,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="font-sans antialiased">
+    <!--
+        Vue will be "mounted" on main element of HTML structure, where Vue components would live inside. Usually,
+        it is one of top div elements or body tag inside HTML layout, and to identify it, assign it id="app"
+    -->
+
+    <body class="font-sans antialiased" id="app">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+
+            <?php
+                @include('layouts.navigation')
+            ?>
 
             <!-- Page Heading -->
             @isset($header)

@@ -72,14 +72,21 @@ export default function usePosts() {
         // Save post to DB from this API call triggered from Form submit method of Vue component:Posts/Create.vue
         await axios.post('/api/posts', serializedPost)
             .then(response => {
-                // After submiting form,redirect users to posts index2 page using push() method from vue-router Composable
-                router.push({ name: 'posts.index2' });
+                // Can't redirect users to posts.index2 page using push() method from vue-router Composable
+                // router.push({ name: 'posts.index2' });
 
                 // Show alert message
                 swal({
                     icon: 'success',
-                    title: 'Post saved successfully!'
+                    title: 'Post saved successfully!',
+                    timer: 3000, // for user non activity and timer (ms) runs out, confirmation automatically applies
+                    timerProgressBar: true,
                 })
+
+                // wait for $swal message to finish since router.push() can't redirect
+                setTimeout(function() {
+                    window.location.href = "/posts/index2";
+                  }, 4000);
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -98,13 +105,19 @@ export default function usePosts() {
 
         await axios.put('/api/posts/' + post.id, post)
             .then(response => {
-                router.push({ name: 'posts.index2' })
-
+                // router.push({ name: 'posts.index2' }) // can't redirect
                 // Show alert message
                 swal({
                     icon: 'success',
-                    title: 'Post updated successfully!'
+                    title: 'Post updated successfully!',
+                    timer: 3000, // for user non activity and timer (ms) runs out, confirmation automatically applies
+                    timerProgressBar: true,
                 })
+
+                // wait for $swal message to finish since router.push() can't redirect
+                setTimeout(function() {
+                    window.location.href = "/posts/index2";
+                  }, 4000);
             })
             .catch(error => {
                 if (error.response?.data) {
@@ -134,8 +147,8 @@ export default function usePosts() {
                         // refresh posts
                         getPosts();
 
-                        // redirect request
-                        router.push({ name: 'posts.index2' });
+                        // can't redirect
+                        // router.push({ name: 'posts.index2' });
 
                         // Show alert message
                         swal({
@@ -187,6 +200,9 @@ export default function usePosts() {
     returned from setup() so that composable functions reactive data is exposed to `this` context in Vue template
 
     If form takes longer to submit, we need loading indicator,disable submit button so user wouldn't hit it twice.
+
+    Had to change navigation links from `vue-router` to hyperlinks because `vue-router` routing conflicts
+    with Laravel built-in routing, and router.push() no longer redirects to other routes because of this change
 
 
     const posts = ref([])

@@ -74,18 +74,18 @@
             </div>
         </div>
 
-        <!-- File input: Thumbnail -->
+        <!-- File input: Thumbnail
         <div class="mt-4">
             <label for="thumbnail" class="block font-medium text-sm text-gray-700">Upload File</label>
             <input type="file" id="thumbnail" @change="post.thumbnail = $event.target.files[0]" />
 
-            <!-- Validation Errors -->
             <div class="text-red-600 mt-1">
                 <div v-bind:key="message" v-for="message in validationErrors?.thumbnail">
                     {{ message }}
                 </div>
             </div>
         </div>
+        -->
 
         <!-- Buttons -->
         <div class="mt-4">

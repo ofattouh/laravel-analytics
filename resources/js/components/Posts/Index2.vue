@@ -128,7 +128,7 @@
 
             <!-- Global Search variable -->
             <div class="mb-4 grid lg:grid-cols-4">
-                <input v-model="search_global" type="text" placeholder="Search table..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                <input v-model="search_global" type="text" placeholder="Search records..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             </div>
 
             <table class="min-w-full divide-y divide-gray-200 border">
@@ -304,8 +304,9 @@
                             {{ post.updated_at }}
                         </td>
 
+                        <!-- v-bind directive `:` which utilize template literals ` for dynamic assignment -->
                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                            <router-link :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link><br>
+                            <a :href="`/posts/edit/${post.id}`">Edit</a><br>
                             <a href="#" @click.prevent="deletePost(post.id)" class="my-color-burgundy">Delete</a>
                         </td>
                     </tr>
@@ -358,6 +359,8 @@
         @pagination-change-page="getPosts"
     />
 
+    // Can't be used because `vue-router` routing conflicts with Laravel routes/web.php routing
+    <router-link :to="{ name: 'posts.edit', params: { id: post.id } }">Edit</router-link><br>
 
     https://laravel-vue-pagination.org/guide/components/tailwind.html
     https://laravel-vue-pagination.org/guide/api/props.html

@@ -16,7 +16,8 @@
     <!--
         Vue will be "mounted" on main element of HTML structure, where Vue components would live inside. Usually,
         it is one of top div elements or body tag inside HTML layout, and to identify it, we assign it id="app"
+    <body class="font-sans antialiased">
     -->
-    <body class="font-sans antialiased" id="app">
+    <body class="font-sans antialiased">
     </body>
 </html>
