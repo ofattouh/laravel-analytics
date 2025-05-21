@@ -1,27 +1,22 @@
 import { ref, reactive, inject } from 'vue';
 
-// Define sweetalert package variable
-const swal = inject('$swal');
-
-// Define user object
-const user = reactive({
-    name: '',
-    email: '',
-})
-
 // Composable reusable function
 export default function useAuth() {
     const processing = ref(false);
     const user = ref({});
     const isUserFound = ref(false);
 
-    // Get logged in user info
+    // Define sweetalert package variable
+    const swal = inject('$swal');
+
+    // Get logged user info
     const getLoggedUser = async () => {
         await axios.get('/userinfo')
             .then(response => {
                 // console.log('\nresponse: ', response);
 
-                if (response) {
+                // User record was found
+                if (response && (response.data.name || response.data.email)) {
                     user.value.name = response.data.name;
                     user.value.email = response.data.email;
                     isUserFound.value = true;
