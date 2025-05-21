@@ -25,6 +25,8 @@ export default defineConfig({
                 // https://laravel.com/docs/12.x/vite#cors
                 // Example: Allow all origins for given top-level domain, such as *.laravel
                 // Supports: SCHEME://DOMAIN.laravel[:PORT] => /^https?:\/\/.*\.laravel(:\d+)?$/,
+                'http://127.0.0.1:8000', // removes cors browser error caused by /api/posts
+                'http://localhost:8000', // removes cors browser error caused by /api/posts
                 'http://local-2.evaluation.pshsa.ca:8000', // removes cors browser error caused by /api/posts
             ],
         },

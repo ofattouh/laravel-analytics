@@ -17,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'is_admin' => \App\Http\Middleware\IsAdminMiddleware::class,
         ]);
 
-        //
+        // Allow incoming requests from Vue/SPA to authenticate using Laravel web session cookies while still
+        // allowing requests from third parties or mobile applications to authenticate using API tokens
+        // Using middleware:`auth:sanctum`, routes/api.php can use routes/web.php stateful sessions (Bearer Token not used)
         $middleware->statefulApi();
 
         // Add related Cors Middleware if needed
@@ -26,3 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
+/*
+
+    // https://laravel.com/docs/12.x/sanctum
+
+*/

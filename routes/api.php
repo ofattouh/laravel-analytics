@@ -9,16 +9,20 @@ use App\Http\Controllers\Api\PostController;
 // API endpoint controller:CategoryController
 use App\Http\Controllers\Api\CategoryController;
 
-// API authetication middleware:`sanctum` using API tokens instead of sessions of middleware:`web`
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// API authetication for group of routes using middleware:`auth:sanctum` which use Bearer Tokens for 3rd party
+// apps authetication as fallback but instead is using sessions of guard:`web` from 'config/sanctum.php'
+Route::group(['middleware' => 'auth:sanctum'], function() {
 
-// API endpoint for ALL routes of posts using apiResource for ALL RESTful methods of controller:PostController
-Route::apiResource('posts', PostController::class);  // references controller:Api:PostController
+    // API endpoint for ALL routes of posts using apiResource for ALL RESTful methods of controller:PostController
+    Route::apiResource('posts', PostController::class); // references controller:Api:PostController
 
-// API endpoint for route:categories to fetch DB categories from `/api/categories`
-Route::get('categories', [CategoryController::class, 'index']);
+    // API endpoint for route:categories to fetch DB categories from `/api/categories`
+    Route::get('categories', [CategoryController::class, 'index']);
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
 
 
 /*
@@ -29,13 +33,23 @@ Route::get('categories', [CategoryController::class, 'index']);
     are defined in Route::apiResource()
 
     // IMPORTANT
-    Authentication routes in routes/api.php use API token for authentication and API routes do NOT support
-    session storage unlike routes/web.php with middleware `web` so routes/api.php can NOT store user data in
-    session and Auth::user() always returns null,as explained here: https://stackoverflow.com/a/44863089/13729121
+    Authentication routes in routes/api.php fallback is to use API Bearer Token for authentication while extra
+    configuration is needed for API routes to support session storage unlike routes/web.php default support
+    for sessions of `web` and without this,routes/api.php can NOT store user data in session and Auth::user()
+    returns null UNLESS you set SANCTUM_STATEFUL_DOMAINS in config/sanctum.php or .env and using guard:'auth:sanctum'
+    to log Vue/SPA using sessions of guard:`web`,explained here: https://stackoverflow.com/a/44863089/13729121
 
-    // API endpoint for route:posts used in `/api/posts` with GET method
-    Route::get('posts', [PostController::class, 'index']);  // references controller:Api:PostController
+    // Individual route
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    })->middleware('auth:sanctum');
+
+    // API endpoint for route:posts used in `/posts` with GET method
+    Route::get('posts', [PostController::class, 'index']);  // references controller:PostController
 
 
     https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/load-data-from-api-axios
+    https://stackoverflow.com/questions/62354802/laravel-7-x-sanctum-spa-with-vuejs-always-returns-401-unauthorized
+    https://laravel.com/docs/12.x/sanctum
+
 */
