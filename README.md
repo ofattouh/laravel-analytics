@@ -30,6 +30,7 @@ https://laraveldaily.com/lesson/laravel-beginners/install-composer-installer
 
 https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/spa-install-laravel-vue-first-vuejs-component
 
+https://github.com/LaravelDaily/Laravel-Vue-Vite-SPA-Course
 
 ## Other Useful Web Links
 
