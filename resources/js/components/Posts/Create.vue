@@ -90,7 +90,7 @@
         <!-- Buttons -->
         <div class="mt-4">
             <!-- Bind disabled attribute to isLoading variable -->
-            <button :disabled="isLoading" class="inline-flex items-center rounded-md my-bgcolor-burgundy px-3 py-2 text-sm uppercase text-white disabled:opacity-75 disabled:cursor-not-allowed">
+            <button :disabled="isLoading" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
                 <span v-show="isLoading" class="inline-block animate-spin w-4 h-4 mr-2 border-t-2 border-t-white border-r-2 border-r-white border-b-2 border-b-white border-l-2 border-l-blue-600 rounded-full"></span>
                 <span v-if="isLoading">Processing...</span>
                 <span v-else>Save</span>

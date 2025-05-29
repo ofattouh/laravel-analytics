@@ -5,11 +5,12 @@
     import useAuth from '@/composables/auth';
 
     // Composable component used for login authentication purposes
-    const { processing, isUserFound, user, logout, getLoggedUser } = useAuth();
+    const { processing, isUserFound, user, logout, getLoggedUser,  getUserRole } = useAuth();
 
     // Component is ready and mounted
     onMounted(() => {
-        getLoggedUser();
+        getLoggedUser()
+        getUserRole()
     })
 </script>
 

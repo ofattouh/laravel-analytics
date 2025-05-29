@@ -52,4 +52,15 @@ app.mount('#app');
 
     app.component('app-content', AppContent);
 
+    // https://casl.js.org/v6/en/guide/intro
+    import { abilitiesPlugin } from '@casl/vue';
+    import ability from './services/ability';
+    .use(abilitiesPlugin, ability);
+
+    // https://casl.js.org/v6/en/guide/define-rules#ability-builder-example
+    // added in: resources/js/services/ability.js
+    import { AbilityBuilder, Ability } from '@casl/ability';
+    const { can, cannot, build } = new AbilityBuilder(Ability);
+    export default build();
+
 */

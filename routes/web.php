@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,7 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy']);
 
     // Get logged in user info in AppNavigation.vue using Laravel Backend
-    Route::get('userinfo', [\App\Http\Controllers\MyUserController::class, 'getUserInfo']);
+    Route::get('user-info', [\App\Http\Controllers\MyUserController::class, 'getUserInfo']);
+
+    // Get logged in user role in Index2.vue using Laravel Backend
+    Route::get('user-role', ['uses' => '\App\Http\Controllers\ProfileController@getUserRolePermissions', 'request' => null]);
 
     // Redirect route:dashboard to another custom route
     Route::get('/dashboard', function () {
@@ -115,6 +119,12 @@ require __DIR__.'/auth.php';
             Route::resource('posts', \App\Http\Controllers\PostController::class);
         });
     });
+
+    Route::view('/welcome', 'welcome', ['name' => 'foo']);
+    Route::get('about-us', ['uses'=>'MyController@about_us','name'=>'foo','page'=>'about'])->name('about-us');
+
+    Route::get('campaign/showtakeup/{id}', ['uses' =>'campaignController@showtakeup'])->name('showtakeup');
+    Route::get('groups/(:any)', array('as' => 'group', 'uses' => 'groups@show'));
 
 
     // IMPORTANT

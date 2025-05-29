@@ -23,6 +23,9 @@ $composer require barryvdh/laravel-debugbar --dev
 // Remove Dependancy/Required package using composer
 $composer remove barryvdh/laravel-debugbar --dev
 
+// Install Front-end permissions packages: Vue/CASL
+$npm install @casl/vue @casl/ability
+
 // Install Laravel module installer Globally
 $composer global require laravel/installer
 
@@ -63,10 +66,13 @@ $php artisan serve
 Useful Links
 ============
 
+
 https://laraveldaily.com/roadmap-learning-path
 
 https://laraveldaily.com/lesson/laravel-beginners/install-composer-installer
 
 https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/spa-install-laravel-vue-first-vuejs-component
+
+https://github.com/LaravelDaily/Laravel-Vue-Vite-SPA-Course
 
 https://startbootstrap.com/template/blog-home

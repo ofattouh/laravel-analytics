@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         /* Test User was already inserted into users table using: `php artisan db:seed` otherwise throws unique email error
         User::factory()->create([
             'name' => 'Test User',
@@ -23,19 +21,30 @@ class DatabaseSeeder extends Seeder
         */
 
         // Call admin seeder class to add admin user test data
-        $this->call(AdminSeeder::class);
+        // $this->call(AdminSeeder::class);
 
         // Call Post seeder class to add table:posts seeder test data
-        $this->call([PostSeeder::class]);
+        // $this->call([PostSeeder::class]);
+
+        // Create 10 test entries inside table:users of Model:User using this factory method
+        // User::factory(10)->create();
+
+        // Call these seeder classes in this order to add user permissions/roles to corresponding tables
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+        ]);
     }
 }
 
 /*
 
-    We can seed data inside DatabaseSeeder.php file however it is better structure when writing seeders to use seeding files
+    We can seed data inside DatabaseSeeder.php main file however it is better structure when writing seeders
+    to use different seeding files
 
-    `php artisan make:seeder AdminSeeder'   // Generate seeder class inside database/seeders folder for admin user
+    `php artisan make:seeder AdminSeeder'   // Generate seeder class inside database/seeders folder for admin test user
 
-    // For different TaskSeeder class fake test data
+    // Create test data for TaskSeeder class
     //\App\Models\Task::factory(20)->create();
 */

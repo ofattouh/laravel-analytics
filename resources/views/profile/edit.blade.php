@@ -18,6 +18,13 @@
                 </div>
             </div>
 
+             <!-- Display user role and permissions -->
+             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.display-user-role-permissions')
+                </div>
+            </div>
+
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')

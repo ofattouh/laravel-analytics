@@ -78,7 +78,7 @@ export default function usePosts() {
                 // Show alert message
                 swal({
                     icon: 'success',
-                    title: 'Post saved successfully!',
+                    title: 'Record saved successfully!',
                     timer: 3000, // for user non activity and timer (ms) runs out, confirmation automatically applies
                     timerProgressBar: true,
                 })
@@ -89,9 +89,25 @@ export default function usePosts() {
                   }, 4000);
             })
             .catch(error => {
+                // console.log('Error saving record: ', error);
+
                 if (error.response?.data) {
-                    validationErrors.value = error.response.data.errors; // Save errors
-                    isLoading.value = false // Allow resubmiting form because of validation errors
+                    // unprocessable 422 error thrown by Laravel required Form fields
+                    if (error.response && error.response.status == 422) {
+                        validationErrors.value = error.response.data.errors; // Save errors
+                        isLoading.value = false // Allow resubmiting form because of validation errors
+                    }
+
+                    // Unuthorized 403 error thrown by Laravel Gate permissions for DB CRUD
+                    if (error.response && error.response.status == 403) {
+                        swal({
+                            icon: 'error',
+                            title: error.response.status + ' ' + error.response.statusText,
+                            text: 'Error saving record! ' + error.response.data.message,
+                        })
+
+                        isLoading.value = false // Allow resubmiting form because of validation errors
+                    }
                 }
             })
     }
@@ -109,7 +125,7 @@ export default function usePosts() {
                 // Show alert message
                 swal({
                     icon: 'success',
-                    title: 'Post updated successfully!',
+                    title: 'Record updated successfully!',
                     timer: 3000, // for user non activity and timer (ms) runs out, confirmation automatically applies
                     timerProgressBar: true,
                 })
@@ -120,9 +136,17 @@ export default function usePosts() {
                   }, 4000);
             })
             .catch(error => {
+                // console.log('Error updating record: ', error);
+
                 if (error.response?.data) {
                     validationErrors.value = error.response.data.errors
                 }
+
+                swal({
+                    icon: 'error',
+                    title: error.response.status + ' ' + error.response.statusText,
+                    text: 'Error updating record! ' + error.response.data.message,
+                })
             })
             .finally(() => isLoading.value = false)
     }
@@ -153,15 +177,16 @@ export default function usePosts() {
                         // Show alert message
                         swal({
                             icon: 'success',
-                            title: 'Post deleted successfully!'
+                            title: 'Record deleted successfully!'
                         })
                     })
                     .catch(error => {
-                        console.log('Error deleting post: ', error);
+                        // console.log('Error deleting record: ', error);
 
                         swal({
                             icon: 'error',
-                            title: 'Error deleting post!'
+                            title: error.response.status + ' ' + error.response.statusText,
+                            text: 'Error deleting record! ' + error.response.data.message,
                         })
                     })
             }

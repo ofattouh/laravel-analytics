@@ -223,11 +223,17 @@ return [
 
     `php artisan migrate`                 // Run ALL Database migrations files
 
+    `php artisan migrate --seed`          // Run/create ALL migrations tables and corresponding classes seeder data files
+
+    `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
+
     `php artisan migrate:fresh`           // Rebuild Database if already existed and run last batch installation tables
 
     `php artisan migrate:reset`           // Rebuild Database if already existed and run last batch installation tables
 
     `php artisan migrate:rollback`        // Rollback DB command will only roll back migrations to last batch number
+
+    `php artisan db:seed`                 // Run ALL seeder classes defined in:seeders/DatabaseSeeder,add all seeder values
 
     `php artisan db:wipe`                 // Delete/drop all tables of Database
 
@@ -247,21 +253,28 @@ return [
 
     `php artisan make:model Task -mc`     // Create Model:Task with Migration and Controller files (3 artisan commands)
 
+    `php artisan make:model Role -m`       // Create Model:Role class file and Migration:xxx_create_roles_table file (2 artisan commands)
+
+    `php artisan make:model Permission -m` // Create Model:Permission class file and Migration:xxx_create_permissions_table file (2 artisan commands)
+
     `php artisan make:migration "add is admin to users table"` // Add is_admin boolean column field to users table
 
     `php artisan make:migration "add category to posts table"` // Add foreign key column:category_id to Posts table
 
-    `php artisan make:seeder AdminSeeder` // Generate seeder class inside database/seeders folder for admin user
+    `php artisan make:migration "create permission role table"` // Create pivot table for many-to-many relationship,add relations to models:permission,role
+    `php artisan make:migration "create role user table"`       // Create pivot table for many-to-many relationship,add relations to models:role,user
 
-    `php artisan make:seeder PostSeeder`  // Generate seeder class inside database/seeders folder for Post table
+    `php artisan make:seeder AdminSeeder` // Generate seeder class inside database/seeders folder to populate DB data for admin user
+
+    `php artisan make:seeder PostSeeder`  // Generate seeder class inside database/seeders folder to populate DB data for Post table
+
+    `php artisan make:seeder PermissionSeeder` // Generate seeder class inside database/seeders folder to populate DB data for Permission table
+    `php artisan make:seeder RoleSeeder`       // Generate seeder class inside database/seeders folder to populate DB data for Role table
+    `php artisan make:seeder UserSeeder`       // Generate seeder class inside database/seeders folder to populate DB data for User table
 
     `php artisan make:factory TaskFactory -model=Task` // Generate Task factory:TaskFactory for Model:Task (DB seeds)
 
     `php artisan make:factory PostFactory`             // Generate Post factory (for table:Post seed values)
-
-    `php artisan db:seed`                 // Run other seeder classes in:seeders/DatabaseSeeder, add all seeder values
-
-    `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
 
     // Create Resource Controller:CategoryController with Model:Category, add type-hinted models for controller methods
     `php artisan make:controller CategoryController --resource --model=Category`
@@ -290,6 +303,8 @@ return [
 
     `php artisan make:resource PostResource`        // Create Eloquent API Resource class:PostResource
     `php artisan make:resource CategoryResource`    // Create Eloquent API Resource class:CategoryResource
+
+    `php artisan make:policy PostPolicy --model=Post` // Create policy class for model:`Post` with example policy methods created in app/Policies directory
 
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config

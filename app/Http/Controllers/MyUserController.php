@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class MyUserController extends Controller
 {
-    // Get logged in user information
+
+    /**
+     * Get logged in user information
+     */
     public function getUserInfo(Request $request)
     {
         $userDetails = [];
@@ -30,5 +33,7 @@ class MyUserController extends Controller
     $user = Auth::user();
     $id = Auth::id();
     $userDetails = response()->json($request->user());
+
+    https://laravel.com/docs/12.x/authentication
 
 */

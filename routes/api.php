@@ -48,6 +48,21 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('posts', [PostController::class, 'index']);  // references controller:PostController
 
 
+    // Define abilities based on call to /abilities API endpoint using API route:abilities
+    // Get authenticated user roles with permissions, pluck to have only permissions, and using other
+    // collection methods, get the unique permissions in the array list
+    // Use this API call in auth.js Composable, using method getAbilities()
+    Route::get('abilities', function(Request $request) {
+        return $request->user()->roles()->with('permissions')
+            ->get()
+            ->pluck('permissions')
+            ->flatten()
+            ->pluck('name')
+            ->unique()
+            ->values()
+            ->toArray();
+    });
+
     https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/load-data-from-api-axios
     https://stackoverflow.com/questions/62354802/laravel-7-x-sanctum-spa-with-vuejs-always-returns-401-unauthorized
     https://laravel.com/docs/12.x/sanctum

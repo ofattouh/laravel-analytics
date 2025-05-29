@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 
 // Data model
 use App\Models\Post;
@@ -25,6 +26,10 @@ class PostController extends Controller
         // `PostResource` collection is a wrapper on top of Eloquent Query: Post::all() which can transform
         // each field to different format by returning array from `PostResource`:`toArray()` method
         // return PostResource::collection(Post::all());
+
+        // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
+        // Authorize ONLY 1 action at a time
+        Gate::authorize('db.rows.select');
 
         // `numberRecords` should match `:limit` property of TailwindPagination Vue component
         $numberRecords = 10;
@@ -80,11 +85,13 @@ class PostController extends Controller
     //
     public function store(StorePostRequest $request)
     {
-        // Simulate file upload, check if file exists and display filename in Laravel Log
-        if ($request->hasFile('thumbnail')) {
-            $filename = $request->file('thumbnail')->getClientOriginalName();
-            info($filename);
-        }
+        // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
+        Gate::authorize('db.rows.create');
+        Gate::authorize('db.rows.update');
+
+        // Authorize/not multiple actions at a time using any or none
+        // Gate::any(['db.rows.create', 'db.rows.update']);
+        // Gate::none(['db.rows.create', 'db.rows.update']);
 
         // Validate Request when Form is submitted from Vue component:Posts/Create.vue,insert new Posts table entry
         $post = Post::create($request->validated());
@@ -96,12 +103,26 @@ class PostController extends Controller
     // Show single post from Vue Edit component
     public function show(Post $post)
     {
+        // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
+        Gate::authorize('db.rows.select');
+        Gate::authorize('db.rows.update');
+
+        // Check permission:db.rows.update against model:`Post`
+        // Gate::authorize('db.rows.update', $post);
+
+        // Authorize multiple actions at a time using any or none
+        // Gate::any(['db.rows.select', 'db.rows.update']);
+
         return new PostResource($post);
     }
 
     // Save updated single post from Vue Edit component
     public function update(Post $post, StorePostRequest $request)
     {
+        // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
+        // Authorize ONLY 1 action at a time
+        Gate::authorize('db.rows.update');
+
         // Validate Request when Form is submitted from Vue component:Posts/Edit.vue
         $post->update($request->validated());
 
@@ -112,6 +133,10 @@ class PostController extends Controller
     // Delete post
     public function destroy(Post $post)
     {
+        // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
+        // Authorize ONLY 1 action at a time
+        Gate::authorize('db.rows.delete');
+
         $post->delete();
 
         // return nothing since record is deleted which will return 204 HTTP status code
@@ -125,6 +150,13 @@ class PostController extends Controller
     API routes is added to bootstrap/app.php file
 
     `php artisan install:api`  // Prepare Laravel application for API routes
+
+
+    // Simulate file upload, check if file exists and display filename in Laravel Log
+    if ($request->hasFile('thumbnail')) {
+        $filename = $request->file('thumbnail')->getClientOriginalName();
+        info($filename);
+    }
 
 
     https://laraveldaily.com/lesson/laravel-beginners/form-validation-controller-form-requests
