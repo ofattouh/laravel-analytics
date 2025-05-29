@@ -53,6 +53,5 @@ class AppServiceProvider extends ServiceProvider
 
 
     https://laravel.com/docs/12.x/authorization
-    https://casl.js.org/v6/en/
 
 */
