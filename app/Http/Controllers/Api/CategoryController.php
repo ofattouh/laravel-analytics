@@ -18,9 +18,36 @@ class CategoryController extends Controller
     public function index()
     {
         // Check user role permissions with Laravel Gate using boot() method of AppServiceProvider
-        Gate::authorize('db.rows.select');
+        // Gate::authorize('db.rows.select');
 
-        // return collection of all categories from DB Model:Category
+        // return Category::all();
+
+        // return collection of all categories as resource wrapped in `data` with only 2 fields:`id`,`name`
+        // from Resource:`CategoryResource` using DB Model:`Category`
+        return CategoryResource::collection(Category::all());
+    }
+
+    // Instead of returning category object,return new Resource object with category as parameter
+    public function show(Category $category)
+    {
+        // return $category;
+        return new CategoryResource($category);
+    }
+
+    // This method doesn't show field:`description` using `when` closure of Resource:`CategoryResource`
+    public function list()
+    {
         return CategoryResource::collection(Category::all());
     }
 }
+
+
+/*
+
+    After returning category resource instead of category object, ALL endpoints at:routes/api.php for this
+    controller will return only two fields:`id`,`name` with new layer of data. It is best practice of JSON API
+    to return data within the data, and everything else is reserved for error messages and additional information
+
+    This is how we add rules of what fields must be returned using resource object:`CategoryResource`
+
+*/

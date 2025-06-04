@@ -253,6 +253,8 @@ return [
 
     `php artisan make:model Task -mc`     // Create Model:Task with Migration and Controller files (3 artisan commands)
 
+    `php artisan make:model Category -mf`  // Create Model:Category with Migration and Factory class files
+
     `php artisan make:model Role -m`       // Create Model:Role class file and Migration:xxx_create_roles_table file (2 artisan commands)
 
     `php artisan make:model Permission -m` // Create Model:Permission class file and Migration:xxx_create_permissions_table file (2 artisan commands)
@@ -279,6 +281,7 @@ return [
     // Create Resource Controller:CategoryController with Model:Category, add type-hinted models for controller methods
     `php artisan make:controller CategoryController --resource --model=Category`
     `php artisan make:controller PostController --resource --model=Post`
+    `php artisan make:controller xAPIPostController --resource --model=xAPIPost`
 
     `php artisan make:controller Api/PostController`     // Create controller:PostController for API endpoint
     `php artisan make:controller Api/CategoryController` // Create controller:CategoryController for API endpoint
@@ -297,7 +300,7 @@ return [
 
     `php artisan make:request StorePostRequest`     // Create Form class:StorePostRequest with Laravel validation rules
 
-    `php artisan install:api`                       // Install Laravel application API routes
+    `php artisan install:api`                       // Install Laravel application API routes,laravel/sanctum
 
     `php artisan config:publish cors`               // Publish cors configuration file in config/cors.php
 

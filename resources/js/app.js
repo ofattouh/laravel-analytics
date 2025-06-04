@@ -15,6 +15,7 @@ import PostsCreate from '@/components/Posts/Create.vue';
 import PostsIndex from '@/components/Posts/Index.vue';
 import PostsIndex2 from '@/components/Posts/Index2.vue';
 import PostsEdit from '@/components/Posts/Edit.vue';
+import xAPIPostsIndex from '@/components/xAPI/Posts/Index.vue';
 
 // Vue routes definitions file
 import router from './routes/index';
@@ -37,6 +38,7 @@ app.component('post-create', PostsCreate);
 app.component('post-index', PostsIndex);
 app.component('posts-index-2', PostsIndex2);
 app.component('post-edit', PostsEdit);
+app.component('xapi-posts-index', xAPIPostsIndex);
 
 // Mount Vue components to id="app" defined in view: app.blade.php
 app.mount('#app');

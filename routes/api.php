@@ -3,25 +3,51 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// API endpoint controller:PostController
 use App\Http\Controllers\Api\PostController;
-
-// API endpoint controller:CategoryController
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\xAPIPostController;
 
-// API authetication for group of routes using middleware:`auth:sanctum` which use Bearer Tokens for 3rd party
-// apps authetication as fallback but instead is using sessions of guard:`web` from 'config/sanctum.php'
+// xAPI routes for SCORM Cloud Prototypes Packages: https://xapi.com/download-prototypes/
+Route::controller(xAPIPostController::class)->group(function () {
+    Route::get('/xapiposts', 'index');
+    Route::get('/xapiposts/activities/profile{any?}', 'index');
+    Route::post('/xapiposts/activities', 'store');
+
+    Route::get('/xapiposts/activities/state', 'index');
+    Route::post('/xapiposts/activities/state', 'store');
+
+    Route::get('/xapiposts/statements{any?}', 'index');
+    Route::put('/xapiposts/statements', 'edit');
+    Route::post('/xapiposts/statements', 'store');
+
+    // http://local-2.evaluation.pshsa.ca:8000/api/xapiposts/activities/profile?profileId=highscores&activityId=http%3A%2F%2Fid.tincanapi.com%2Factivity%2Ftincan-prototypes%2Ftetris
+    // http://local-2.evaluation.pshsa.ca:8000/api/xapiposts/statements?limit=25&related_activities=false&related_agents=false
+});
+
+
+// API endpoint for route:categories to fetch DB categories from `/api/categories`
+Route::get('categories', [CategoryController::class, 'index']);
+
+// API endpoint for route:categories/{category} to fetch DB category from `/api/categories/{categoryId}`
+Route::get('categories/{category}', [CategoryController::class, 'show']);
+
+// API endpoint for route:lists/categories to fetch DB categories from `/api/lists/categories/`
+Route::get('lists/categories', [CategoryController::class, 'list']);
+
+
+// API authentication for group of routes using middleware:`auth:sanctum` which use Bearer Tokens for 3rd party
+// apps authentication as fallback but instead is using sessions of guard:`web` from 'config/sanctum.php'
 Route::group(['middleware' => 'auth:sanctum'], function() {
 
     // API endpoint for ALL routes of posts using apiResource for ALL RESTful methods of controller:PostController
     Route::apiResource('posts', PostController::class); // references controller:Api:PostController
 
-    // API endpoint for route:categories to fetch DB categories from `/api/categories`
-    Route::get('categories', [CategoryController::class, 'index']);
+
 
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
 });
 
 
@@ -46,7 +72,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     // API endpoint for route:posts used in `/posts` with GET method
     Route::get('posts', [PostController::class, 'index']);  // references controller:PostController
-
 
     // Define abilities based on call to /abilities API endpoint using API route:abilities
     // Get authenticated user roles with permissions, pluck to have only permissions, and using other

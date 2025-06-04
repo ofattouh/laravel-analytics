@@ -28,6 +28,8 @@ export default defineConfig({
                 'http://127.0.0.1:8000', // removes cors browser error caused by /api/posts
                 'http://localhost:8000', // removes cors browser error caused by /api/posts
                 'http://local-2.evaluation.pshsa.ca:8000', // removes cors browser error caused by /api/posts
+                'http://local.tincan-prototypes.com', // removes cors browser error
+                // 'https://cloud.scorm.com/lrs/QA82DLPXCA/', // removes cors browser error
             ],
         },
     },

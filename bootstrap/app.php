@@ -31,6 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
 /*
 
+    The prefix `api` is set as a default value for $apiPrefix parameter
+
     // https://laravel.com/docs/12.x/sanctum
 
 */

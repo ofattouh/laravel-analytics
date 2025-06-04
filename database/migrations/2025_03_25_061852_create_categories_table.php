@@ -31,4 +31,5 @@ return new class extends Migration
 
     `php artisan migrate`   // Run Database migrations files
 
+    $table->text('description'); // Custom added field
 */
