@@ -296,7 +296,9 @@ return [
 
     `php artisan route:clear`                       // Clear routes cache
 
-    `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:IsAdminMiddleware to check if user is admin
+    `php artisan make:middleware IsAdminMiddleware` // Create custom Middleware:`IsAdminMiddleware` to check if user is admin
+
+    `php artisan make:middleware AlwaysAcceptJson`  // Create custom Middleware:`AlwaysAcceptJson` to add JSON to Header Request
 
     `php artisan make:request StorePostRequest`     // Create Form class:StorePostRequest with Laravel validation rules
 
@@ -308,8 +310,6 @@ return [
     `php artisan make:resource CategoryResource`    // Create Eloquent API Resource class:CategoryResource
 
     `php artisan make:policy PostPolicy --model=Post` // Create policy class for model:`Post` with example policy methods created in app/Policies directory
-
-    `php artisan make:middleware AlwaysAcceptJson`    // Add middleware:`AlwaysAcceptJson`
 
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
