@@ -309,6 +309,8 @@ return [
 
     `php artisan make:policy PostPolicy --model=Post` // Create policy class for model:`Post` with example policy methods created in app/Policies directory
 
+    `php artisan make:middleware AlwaysAcceptJson`    // Add middleware:`AlwaysAcceptJson`
+
 
     https://laraveldaily.com/lesson/laravel-beginners/db-structure-migrations-env-config
 
