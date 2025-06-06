@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\xAPIPostController;
 
 // xAPI routes for SCORM Cloud Prototypes Packages: https://xapi.com/download-prototypes/
@@ -34,6 +35,8 @@ Route::get('categories/{category}', [CategoryController::class, 'show']);
 // API endpoint for route:lists/categories to fetch DB categories from `/api/lists/categories/`
 Route::get('lists/categories', [CategoryController::class, 'list']);
 
+// API endpoint for route:products to fetch DB products from `/api/products`
+Route::get('products', [ProductController::class, 'index']);
 
 // API authentication for group of routes using middleware:`auth:sanctum` which use Bearer Tokens for 3rd party
 // apps authentication as fallback but instead is using sessions of guard:`web` from 'config/sanctum.php'
@@ -69,6 +72,11 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     })->middleware('auth:sanctum');
+
+    // Individual route
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    })->middleware(Authenticate::using('sanctum'));
 
     // API endpoint for route:posts used in `/posts` with GET method
     Route::get('posts', [PostController::class, 'index']);  // references controller:PostController

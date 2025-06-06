@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    /** @use HasFactory<\Database\Factories\CategoryFactory> */
+    use HasFactory;
+
     // Use custom table name from database instead of default Model class plural name as database table name
     // protected $table = 'test_categories';
     protected $table = 'categories';

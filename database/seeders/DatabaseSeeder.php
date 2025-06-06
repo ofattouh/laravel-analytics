@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,12 +31,17 @@ class DatabaseSeeder extends Seeder
         // Create 10 test entries inside table:users of Model:User using this factory method
         // User::factory(10)->create();
 
-        // Call these seeder classes in this order to add user permissions/roles to corresponding tables
+        /* Call these seeder classes in this order to add user permissions/roles to corresponding tables
         $this->call([
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
         ]);
+        */
+
+        // Create 10,20 test entries inside tables:Category,Product using their Models and factory methods
+        Category::factory(10)->create();
+        Product::factory(20)->create();
     }
 }
 

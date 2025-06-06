@@ -227,6 +227,8 @@ return [
 
     `php artisan migrate:refresh --seed`  // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
 
+    `php artisan migrate:fresh --seed`    // (Run ONLY in Development) Refresh ALL seeding data and ALL migration tables data
+
     `php artisan migrate:fresh`           // Rebuild Database if already existed and run last batch installation tables
 
     `php artisan migrate:reset`           // Rebuild Database if already existed and run last batch installation tables
@@ -254,6 +256,8 @@ return [
     `php artisan make:model Task -mc`     // Create Model:Task with Migration and Controller files (3 artisan commands)
 
     `php artisan make:model Category -mf`  // Create Model:Category with Migration and Factory class files
+
+    `php artisan make:model Product -mf`   // Create Model:Product with Migration and Factory class files
 
     `php artisan make:model Role -m`       // Create Model:Role class file and Migration:xxx_create_roles_table file (2 artisan commands)
 
@@ -285,6 +289,7 @@ return [
 
     `php artisan make:controller Api/PostController`     // Create controller:PostController for API endpoint
     `php artisan make:controller Api/CategoryController` // Create controller:CategoryController for API endpoint
+    `php artisan make:controller Api/ProductController`  // Create controller:ProductController for API endpoint
 
     `php artisan route:list`                        // List available Routes
 
@@ -308,6 +313,7 @@ return [
 
     `php artisan make:resource PostResource`        // Create Eloquent API Resource class:PostResource
     `php artisan make:resource CategoryResource`    // Create Eloquent API Resource class:CategoryResource
+    `php artisan make:resource ProductResource`     // Create Eloquent API Resource class:ProductResource
 
     `php artisan make:policy PostPolicy --model=Post` // Create policy class for model:`Post` with example policy methods created in app/Policies directory
 
