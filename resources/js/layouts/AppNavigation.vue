@@ -51,6 +51,10 @@
                                 DEMO DATA 2
                             </a>
 
+                            <a href="/products/list" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
+                                PRODUCTS
+                            </a>
+
                             <a href="/profile" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:my-color-burgundy transition duration-150 ease-in-out">
                                 MY ACCOUNT
                             </a>

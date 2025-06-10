@@ -23,9 +23,8 @@
     <body class="font-sans antialiased" id="app">
         <div class="min-h-screen bg-gray-100">
 
-            <?php
-                @include('layouts.navigation')
-            ?>
+            {{-- Use Vue navigation component instead of Blade navigation component --}}
+            {{-- @include('layouts.navigation') --}}
 
             <!-- Page Heading ONLY shown for logged in users -->
             @auth

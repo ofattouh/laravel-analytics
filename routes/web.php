@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
         return view('post-edit');
     })->where('id', '[0-9]+');
 
+    // Fetch DB products from route:`/products/list` using endpoint:`/api/products` in composables/products.js
+    Route::get('/products/list', [\App\Http\Controllers\Api\ProductController::class, 'list']);
+
     // Using HTML Hyperlink instead of `router-link`
     Route::get('/user/dashboard', function () {
         return view('my-user-dashboard');
