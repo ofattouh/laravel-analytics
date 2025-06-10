@@ -27,7 +27,7 @@ class ProductController extends Controller
         // return $products;
     }
 
-    // Used get result from:`api/products` and pass it as variable:`products` to view:`products.index`
+    // Used to get result from:`api/products` and pass it as variable:`products` to view:`products.index`
     public function list()
     {
         // Product is paginated and eager loaded with Category to eliminate N+1 duplicate queries using `with`
