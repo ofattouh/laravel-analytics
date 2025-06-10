@@ -39,6 +39,17 @@ class CategoryController extends Controller
     {
         return CategoryResource::collection(Category::all());
     }
+
+    // Save category to DB using API call to:`api/categories` or using Vue HTML Form with submit method
+    public function store(Request $request)
+    {
+        // $category = Category::create($request->all());
+
+        // Pass only the needed DB variable:`name` from API call
+        $category = Category::create($request->only('name'));
+
+        return new CategoryResource($category);
+    }
 }
 
 
@@ -49,5 +60,8 @@ class CategoryController extends Controller
     to return data within the data, and everything else is reserved for error messages and additional information
 
     This is how we add rules of what fields must be returned using resource object:`CategoryResource`
+
+    To create new category in `CategoryController`,in HTML Form without API,return redirect to a page however
+    in API,return data in JSON format while best practice is to return the created record
 
 */

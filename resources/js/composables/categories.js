@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 // Composable reusable function
 export default function useCategories() {
@@ -17,6 +17,23 @@ export default function useCategories() {
 
 
 /*
+
+    // Create Category using Vue HTML Form where category `name` is text input field in Vue template
+    <script setup>
+        import { ref } from 'vue';
+        const name = ref(''); // Store string reference
+
+        // Button is clicked from Vue template
+        const submit = () => {
+            axios.post('/api/categories', {
+                name: name.value,
+            })
+            .then(response => {
+                console.log('New Category ID: ' + response.data.data.id)
+            })
+        }
+    </script>
+
 
     https://vuejs.org/api/composition-api-setup.html
     https://vuejs.org/guide/reusability/composables.html

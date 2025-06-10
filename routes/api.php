@@ -25,6 +25,18 @@ Route::controller(xAPIPostController::class)->group(function () {
     // http://local-2.evaluation.pshsa.ca:8000/api/xapiposts/statements?limit=25&related_activities=false&related_agents=false
 });
 
+// API endpoint for route:categories to fetch DB categories from `/api/categories`
+Route::get('categories', [CategoryController::class, 'index']);
+
+// API endpoint for route:categories/{category} to fetch DB category from `/api/categories/{categoryId}`
+Route::get('categories/{category}', [CategoryController::class, 'show']);
+
+// API endpoint for route:lists/categories to fetch DB categories from `/api/lists/categories/`
+Route::get('lists/categories', [CategoryController::class, 'list']);
+
+// API endpoint for route:categories to create DB category
+Route::post('categories', [CategoryController::class, 'store']);
+
 // API endpoint for route:products to fetch DB products from `/api/products`
 Route::get('products', [ProductController::class, 'index']);
 
@@ -34,15 +46,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     // API endpoint for ALL routes of posts using apiResource for ALL RESTful methods of controller:PostController
     Route::apiResource('posts', PostController::class); // references controller:Api:PostController
-
-    // API endpoint for route:categories to fetch DB categories from `/api/categories`
-    Route::get('categories', [CategoryController::class, 'index']);
-
-    // API endpoint for route:categories/{category} to fetch DB category from `/api/categories/{categoryId}`
-    Route::get('categories/{category}', [CategoryController::class, 'show']);
-
-    // API endpoint for route:lists/categories to fetch DB categories from `/api/lists/categories/`
-    Route::get('lists/categories', [CategoryController::class, 'list']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -93,6 +96,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
             ->toArray();
     });
 
+    https://httpstatuses.io/
     https://laraveldaily.com/lesson/vue-laravel-vite-spa-crud/load-data-from-api-axios
     https://stackoverflow.com/questions/62354802/laravel-7-x-sanctum-spa-with-vuejs-always-returns-401-unauthorized
     https://laravel.com/docs/12.x/sanctum
